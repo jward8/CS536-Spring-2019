@@ -1,4 +1,4 @@
-# CS 536 - [Intro to PLs and Compilers](http://pages.cs.wisc.edu/~loris/cs536/)
+# CS 536 (Spring 2019): Intro to Programming Languages and Compilers @ UWMadison 
 
 | Project            | Requirement                                                  | Code                   |
 | ------------------ | ------------------------------------------------------------ | ---------------------- |
