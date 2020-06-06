@@ -1,0 +1,105 @@
+
+<!-- saved from url=(0055)http://pages.cs.wisc.edu/~loris/cs536f16/asn/h4/h4.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CS536 Homework Assignment 4</title>
+<link rel="stylesheet" type="text/css" href="./CS536 Homework Assignment 4_files/webpage.css">
+
+</head><body>
+
+<table class="page" cellpadding="8" cellspacing="0">
+
+<tbody><tr><td class="headerBG">
+<h1>CS536 Homework 4<br></h1>
+
+<b>Due at 11 PM on Feb 25 2020
+
+
+</b></td></tr><tr><td class="regBG">
+<h2 id="Questions">Questions</h2>
+<p class="sectionDesc">Homework assignments must be done individually. Collaboration on homework assignments is
+<em>not</em> allowed.</p>
+
+<p class="reg">
+For this homework you will define a syntax-directed translation
+for the CFG given below, which defines a very simple programming language. 
+</p>
+
+<dir>
+  <pre>
+  program &rarr; MAIN LPAREN RPAREN LCURLY list RCURLY
+  list &rarr; list oneItem
+       | epsilon
+        
+  oneItem &rarr; decl
+          | stmt
+          
+  decl &rarr; BOOL ID SEMICOLON
+       | INT ID SEMICOLON
+            
+  stmt &rarr; ID ASSIGN exp SEMICOLON 
+       | IF LPAREN exp RPAREN stmt
+       | LCURLY list RCURLY 
+  exp &rarr; exp PLUS exp
+      | exp LESS exp
+      | exp EQUALS exp
+      | ID
+      | BOOLLITERAL
+      | INTLITERAL
+  </pre></dir>
+
+<h3 id="Question1">Question 1:</h3>
+<p class="reg">
+Write a syntax-directed translation for the CFG given above to extract all the <b>boolean literals and integer literals</b>. 
+</p><p class="reg">Your translation rules should use the following notation:</p>
+<ul class="reg">
+  <li><tt>{ }</tt> is an empty set</li>
+  <li><tt>{ BOOLLITERAL.value }</tt> is a set containing the value of the <tt>BOOLLITERAL</tt> token</li>
+  <li><tt>{ ID.value }</tt> is a set containing the value of the <tt>ID</tt> token</li>
+  <li><tt>S1</tt> &#8745; <tt>S2</tt> is the intersection of sets <tt>S1</tt> and <tt>S2</tt></li>
+  <li><tt>S1</tt> &#8746; <tt>S2</tt> is the union of sets <tt>S1</tt> and <tt>S2</tt></li>
+  <li> <tt>S1 - S2</tt> is the set of all items that are in <tt>S1</tt> but not in <tt>S2</tt></li>
+</ul>
+<p class="reg">
+Note that you should not try to use something like "<tt>{ a, b }</tt>"
+to mean a set with two elements;
+instead, use set union to combine
+two sets that each contain one element.</p>
+<p class="reg">
+Use the notation that was used in class and in the on-line readings;
+i.e., use <tt>nonterminal.trans</tt> to mean the translation
+of a nonterminal, and <tt>terminal.value</tt> to mean the
+value of a terminal.
+Assume that <tt>ID.value</tt> is a <tt>String</tt> (the name of the
+identifier).
+Use subscripts for translation rules that include the same nonterminal
+or the same terminal more than once.</p>
+
+
+<h3 id="Question2">Question 2:</h3>
+<p class="reg">
+Draw a parse tree for the program given below and
+annotate each nonterminal in the tree with its translation.
+</p>
+<dir>
+<pre>
+  <pre>main ( ) { 
+    int x;
+    bool y;
+    if (y == true) {
+        y = false;
+        x = x + 2;
+    }
+}
+</pre>
+</dir>
+
+</td></tr>
+
+<tr><td></td></tr> <!-- space between items -->
+
+
+</tbody></table>
+
+
+
+</body></html>

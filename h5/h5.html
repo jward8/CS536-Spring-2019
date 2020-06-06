@@ -1,0 +1,126 @@
+<html>
+
+<head>
+<title>CS536 Homework Assignment 5</title>
+
+</head>
+
+<body>
+
+<table class="page" cellpadding="8" cellspacing="0">
+
+<tr><td class="headerBG">
+<h1>CS536 Homework 5<br>
+    
+<b>Due by 11:00 PM on Tuesday Mar 03 2020</b></h1>
+
+
+<p class="sectionDesc">Homework assignments must be done individually. Collaboration on homework assignments is
+<em>not</em> allowed.</p>
+
+<h2 id="Questions">Questions</h2>
+<p class="reg">
+This homework is about the language of <i>set expressions</i> defined as follows:
+</p>
+<ol class="reg">
+  <li><p>A a comma-separated list of zero or more names enclosed in curly braces 
+  is a set expression.</p></li>
+  
+  <li>If S1 and S2 are both set expressions, then so are each of the following:
+    <dir>
+      S1 &cup; S2 <br>
+      S1 &cap; S2 <br>
+      S1 - S2 <br>
+      ( S1 )
+    </dir>
+    </li>
+</ol>
+<p class="reg">
+In a set expression, parenthesis has the highest precedence; intersection and union have the same, second highest precedence;
+subtraction has the lowest precedence. Intersection, union and subtraction are all left associative.
+</p>
+
+the following table are tokens for terminals:
+<dir><pre>
+NAME   // one name in a set
+&cup;     // union
+&cap;     // intersection
+-      // minus
+(      // left paren
+)      // right paren
+{      // left curly brace
+}      // right curly brace
+,      // comma
+</pre></dir>
+
+<p class="reg">
+This time you are not required to write CFG for this language, some CFGs are offered below. For each CFG, do the following check:
+</p>
+
+<ol type="a" class="reg">
+  <li>If there exists one string that is a legal set expression (given our definition above), but is not in
+       the language of the CFG, give one example.</li>
+  <li>If there exists one string that is not a set regular expression (given our definition above), but is in
+       the language of the CFG, give one example.</li>
+  <li>If the CFG is ambiguous, drawing two different parse trees for some string in the language of the CFG.</li>
+  <li>If the CFG is correct, claim "It is correct".</li>
+</ol>
+<p class="reg">Note that the terminals are 
+<tt>LPAREN</tt>, <tt>RPAREN</tt>, <tt>MINUS</tt>, <tt>UNION</tt>, <tt>INTERSECT</tt>, <tt>LCURLY</tt>, <tt>RCURLY</tt>, <tt>COMMA</tt> and <tt>NAME</tt>. 
+</p>
+
+
+<h3 id="CFG1">CFG 1:</h3>
+<dir><pre>
+exp &rarr; exp MINUS term | term
+term &rarr; term UNION factor | term INTERSECT factor | LPAREN exp RPAREN | factor
+factor &rarr; LCURLY list RCURLY
+list &rarr; NAME | list COMMA NAME
+</pre></dir>
+
+
+<h3 id="CFG2">CFG 2:</h3>
+<dir><pre>
+exp &rarr; LCURLY RCURLY | LCURLY list RCURLY | term
+term &rarr; term MINUS factor | factor
+factor &rarr; factor UNION set | factor INTERSECT set | set
+set &rarr; LPAREN set RPAREN | exp
+list &rarr; epsilon | NAME | list COMMA NAME
+</pre></dir>
+
+<h3 id="CFG3">CFG 3:</h3>
+<dir><pre>
+exp &rarr; exp MINUS term | term
+term &rarr; term UNION factor | term INTERSECT factor | LPAREN exp RPAREN | factor
+factor &rarr; LCURLY RCURLY | LCURLY list RCURLY
+list &rarr; NAME | list COMMA NAME
+</pre></dir>
+
+<h3 id="CFG4">CFG 4:</h3>
+<dir><pre>
+exp &rarr; exp MINUS term | term
+term &rarr; factor UNION factor | term INTERSECT factor | factor
+factor &rarr; LPAREN exp RPAREN | LCURLY RCURLY  | LCURLY list RCURLY
+list &rarr; NAME | list COMMA NAME
+</pre></dir>
+
+<h3 id="CFG5">CFG 5:</h3>
+<dir><pre>exp &rarr; exp MINUS term | term
+term &rarr; term UNION factor | term INTERSECT factor | factor
+factor &rarr; LPAREN exp RPAREN | LCURLY RCURLY  | LCURLY list RCURLY
+list &rarr; list COMMA NAME | NAME
+</pre></dir>
+
+
+
+<tr><td></td></tr> <!-- space between items -->
+
+</td></tr>
+<tr><td class="regBG">
+<h2 id="Handin">Handing in</h2>
+    <p class="sectionDesc">Homework is to be submitted on Canvas. Please make sure that you submit the correct homework.</p>
+</td></tr>
+</table>
+</body>
+
+</html>

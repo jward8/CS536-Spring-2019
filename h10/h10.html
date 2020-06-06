@@ -1,0 +1,168 @@
+<h2 id="Questions">Homework 10</h2>
+<b>Due: 11pm April 28th 2020 </b>
+<p>
+For the final project, you generate code for expressions
+as discussed in class: the <tt>codeGen</tt> method for each kind
+of expression will generate code to evaluate the expression, leaving
+the value on the stack.
+</p>
+
+<p class="reg">
+While this kind of code is easy to generate, storing intermediate
+values on the stack rather than in registers is inefficient.
+You might think we could instead require that the <tt>codeGen</tt>
+method for an expression should work as follows:
+</p>
+
+<ol class="reg">
+  <li>Each expression node's <tt>codeGen</tt> method would have
+       1 parameter: a register number N, which would be either 0 or 1.</li>
+  <li>For literals or identifiers, the <tt>codeGen</tt> method
+       would simply load the appropriate value in register N.</li>
+  <li>For expressions involving non short-circuited
+       binary operators (+, *, &lt;, etc.)
+       the <tt>codeGen</tt> method would call the <tt>codeGen</tt>
+       method of the left child with argument 0 (which would generate
+       code to evaluate the left expression, leaving the result in register 0),
+       then call the <tt>codeGen</tt> method of the right child with
+       argument 1 (which would generate code to evaluate
+       the right expression, leaving the result in register 1),
+       then perform the operation, leaving the result in the
+       appropriate register.</li>
+</ol>
+
+<p class="reg">
+Unfortunately, this approach does not always work.
+</p>
+
+<h3 id="Question 1">Question 1:</h3>
+<p class="reg">
+Assume that the AST includes only expressions that involve non
+short-circuited binary operators, with literals or identifiers
+at the leaves (no unary operators, no dot-access expressions or function calls 
+as operands). Also assume that in the generated code, all operands must be in 
+registers (i.e., neither operand of a binary operator can be in a memory 
+location, nor can it be a literal value).
+</p>
+<p class="reg">
+  Show that the approach described above does not always work by giving two 
+  examples:
+  </p>
+  <ol type="a" class="reg">
+    <li><p>An expression that cannot be evaluated using just two
+         registers (without storing intermediate results on the
+         stack), but can be evaluated using three registers.
+    </p></li>
+    <li><p>An expression that cannot be evaluated using just three
+         registers (without storing intermediate results on the
+         stack), but can be evaluated using four registers.
+    </p></li>
+  </ol>
+  <p class="reg">
+  For each example, give the expression, the
+  abstract-syntax tree, and a pseudo-code version of the code
+  to evaluate the expression (code that works, <em>not</em> the erroneous code
+  that would be generated using the approach described above).
+  For example, here is an expression that <em>can</em> be
+  evaluated using just two registers, its AST, and its
+  pseudo-code (<b><em>use the same kind of pseudo-code in your answer</em></b>):
+  </p>
+  <dir>
+  <table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <th class="reg">expression</th>
+      <th class="reg">AST</th>
+      <th class="reg">pseudo code</th>
+  </tr>
+  <tr>
+    <td align="center"><pre>a - b</pre></td>
+      <td>
+  <pre>
+     -
+    / \
+   a   b 
+  </pre>
+      </td>
+      <td>
+  <pre>
+    load a into T0  
+    load b into T1  
+    T0 = T0 - T1
+  </pre>
+    </td>
+  </table>
+  </dir>
+  <p class="reg">
+  Note that an expression's operands need not be evaluated
+  left-to-right.
+  For example, the following pseudo-code would also be OK
+  for the expression <tt>a - b</tt>:
+  </p>
+  <dir>
+  <pre>
+  load b into T1  // evaluate the right operand first
+  load a into T0
+  T0 = T0 - T1
+  </pre>
+  </dir>
+<h3 id="Question 2">Question 2:</h3>
+<p class="reg">
+Use the same assumptions about the AST and the generated code as
+for Question 1, including the fact that an expression's operands
+can be evaluated either left-to-right or right-to-left.
+Also assume that all operators are non-commutative and
+non-associative (i.e., the expression <tt>a op b</tt> is
+not equivalent to the expression <tt>b op a</tt>, and the
+expression <tt>(a op b) op c</tt> is not equivalent to the
+expression <tt>a op (b op c)</tt> ).
+</p>
+<p class="reg">
+  You are to give a recursive algorithm that works as follows:
+</p>
+<ul class="reg">
+  <li>
+    <p>The input to the algorithm is an expression
+       node in the AST (recall from Question 1 that we are assuming that we only have expressions involving non short-circuited binary operators).</p>
+  </li>
+
+  <li><p>The output of the algorithm is the number of registers
+       required to generated code for the <em>whole</em>
+       expression.
+  </p>
+  <p>Note that generating code to evaluate a leaf node requires one register (into 
+which the value of the identifier or literal is loaded). </p>
+  <p>For non-leaf nodes, your algorithm
+    should recursively calculate the number of registers required to generate code
+    for the left operand (leaving the value in a register)
+    and the number of registers required to generate code
+    for the right operand (leaving the value in a register) and then determine the number of registers required for the entire expression represented by the node.</p>
+  
+  </li>
+</ul>
+
+<p class="reg">In other words, complete the following method:</p>
+<dir>
+<pre>int numRegisters(ASTNode node) {
+    // add code to calculate and return the number of
+    // registers required to generate code for the whole
+    // expression (whose root is node)
+}</pre></dir>
+<p class="reg">You may use pseudo-code such as <tt>node.leftChild</tt>, <tt>node.rightChild</tt>,  <tt>max(paramA,paramB)</tt>, <tt>min(paramA,paramB)</tt>, and <tt>node.isLeaf()</tt>.</p>
+
+<p class="reg">
+For example, for the expression <tt>a - b</tt>, the input to
+the algorithm is the root node of the expression tree.
+The algorithm will recursively determine that the number of registers required to generate code for each operand is 1 (because each operand is a leaf and thus requires
+one register).
+The output of the algorithm for this example should be 2 (because
+the whole expression can be evaluated using two registers, as
+illustrated above in Part 1, but it cannot be evaluated using
+just one register).
+</p>
+
+</table>
+
+
+</body>
+
+</html>

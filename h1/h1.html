@@ -1,0 +1,61 @@
+
+<h2>Homework 1</h2>
+
+<p>This homework is due at <b>11 PM on Feb 04</b>. <i>It will not be accepted late</i>.<br />
+Make sure to follow the <a href="http://pages.cs.wisc.edu/~loris/cs536/asn.html"> submission instructions</a>.
+<br /><br /></p>
+<ol>
+  <li><p>Draw a <b>deterministic finite state machine</b>
+      that accepts the language of file paths.<br /><br />
+      A file path consists of optional directory names and one file name, separated by "&#47;".
+      </p>
+  <ol>
+    <li><p>The path must start with "&#47;"</p>
+    </li>
+    <li><p>A directory name can include letters and digits</p>
+    </li>
+    <li><p>A file name can include letters, digits and dots</p>
+    </li>
+    <li><p>A file name cannot have two dots in a row</p>
+    </li>
+    <li><p>A file name cannot end with a dot</p>
+    </li>
+    <li><p><b> CLARIFICATION: Both file name and directory name should contain at least one character</b></p>
+    </li>
+    <span style="margin-left: -40px;">Label the edges of your FSM with words <tt>slash</tt>, <tt>dot</tt>, <tt>letter</tt> and <tt>digit</tt>. </br>
+    </span>
+  </ol><br>
+  Valid samples:</br>
+  /P1.java</br>
+  /This/is/a/very/long/directory/.file</br>
+  /foo/I.have.many.dots</br>
+  /bar/NoDot<br>
+  </li>
+</br></br>
+
+  <li><p>Write a <b>regular expression</b> for a UsernameTag. A UsernameTag is of the following format : UserName&#35;Number<br /></p>
+  
+  <ol>
+    <li><p>UserName and number are separated by "&#35;"</p>
+    </li>
+    <li><p>UserName can include letters, digits and "&#45;"</p>
+    </li>
+    <li><p>UserName must start with a letter, and cannot end with "&#45;"</p>
+    </li>
+    <li><p>UserName cannot have two hyphens in a row</p>
+    </li>
+    <li><p>Number can only include digits, and should contain at least one digit</p>
+    </li>
+  </li></ol>
+  Valid samples:</br>
+  ainur-ainabekova#35</br>
+  life4compiler#0102</br>
+  </li>
+</ol>
+<p><span style="padding-left: 40px;">Please use words <tt>hyphen</tt> to represent "<tt>-</tt>", <tt>digit</tt> to represent any digit and <tt>letter</tt> to represent any letter in your regular expression.</span></p>
+<p> </p>
+</td>
+</tr>
+</table>
+</body>
+</html>
