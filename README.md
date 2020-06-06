@@ -1,4 +1,10 @@
-# CS 536 (Spring 2019): Intro to Programming Languages and Compilers @ UWMadison 
+# CS 536 (Spring 2019): Intro to Programming Languages and Compilers @ UW-Madison 
+
+## Links
+
+- [Course Homepage](http://pages.cs.wisc.edu/~loris/cs536/)
+
+## Projects
 
 
 |               Project            |   Code     |
