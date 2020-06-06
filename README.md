@@ -1,4 +1,4 @@
-# CS 536 - [Intro to PLs and Compilers](http://pages.cs.wisc.edu/~loris/cs536/)
+# CS 536 (Spring 2019): Intro to Programming Languages and Compilers @ UWMadison 
 
 | Project            | Requirement                                                  | Code                   |
 | ------------------ | ------------------------------------------------------------ | ---------------------- |
@@ -10,14 +10,4 @@
 | P6: Code Generator | [Requirement](http://pages.cs.wisc.edu/~loris/cs536/asn/p6/p6.html) | [Code](p6) |
 
 
-
-
-
-
-
-
-
-
-
-
-
+<br> Those six projects are done by [@RobeZH](https://github.com/541736690) and [@ShawnZhong](https://github.com/ShawnZhong).
