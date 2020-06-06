@@ -1,0 +1,108 @@
+<html>
+<title>SCANNER Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+<P>
+<IMG SRC="answer1.gif">
+<P>
+
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+The regular expression
+<UL> digit | letter letter </UL>
+is the same as (digit | (letter letter)), and
+means "one digit, or two letters".
+The regular expression
+<UL> digit | letter letter *</UL>
+is the same as (digit | (letter (letter *))), and
+means "one digit, or one or more letters".
+The regular expression
+<UL> digit | letter *</UL>
+is the same as (digit | (letter *)), and
+means "one digit, or zero or more letters".
+
+<h3 id="ans3">Test Yourself #3</h3>
+<P>
+Two new tokens, INT_LITERAL and DBL_LITERAL would be defined.
+The regular expressions for those tokens are
+<UL>
+digit+
+<BR>digit+ dot digit+
+</UL>
+The finite-state machines are
+<pre>
+
+                                       --------
+                                       |      |
+INT_LITERAL                            v      | digit
+                  -----   digit     =======   |
+                  | S | ----------> ||   || ---
+                  -----             =======
+
+
+                                       ------
+                                       |    |
+DBL_LITERAL                         v    | digit
+                  -----   digit     -----   |
+                  | S | ----------> |   | ---
+                  -----             -----              digit
+                                       |         -----       =======
+                                       --------> |   | ----> ||   ||<--
+                                        dot      -----       =======  |
+                                                                |     |
+                                                                -------
+                                                                 digit
+
+</pre>
+
+The modified finite-state machines are
+<pre>
+
+                                 -----
+                                 |   |
+INT_LITERAL                      v   | digit
+               -----   digit     -----                        ================
+               | S | ----------> |   | ---------------------->|| put back    ||
+               -----             ----- any char except digit  || 1 char;     ||
+                                                              || return      ||
+                                                              || INT_LITERAL ||
+                                                              ================
+
+                             digit         digit
+                             ------         -----
+                             |    |         |   |
+DBL_LITERAL                  v    |         v   |                   =================
+           -----   digit     -----          -----                   || put back    ||
+           | S | ----------> |   | -------> |   | ----------------->|| 1 char;     ||
+           -----             -----  dot     ----- any char except   || return      ||
+                                                  digit             || DBL_LITERAL ||
+                                                                    =================
+</pre>
+<P>
+The "combined" finite-state machine would be augmented by having one new edge
+out of the start state, leading to the node labeled A below.
+<pre>
+                      -----
+                      |   |
+                      v   | digit
+    -----   digit     -----                        ================
+    | A | ----------> |   | ---------------------->|| put back    ||
+    -----             -----    any char except     || 1 char;     ||
+                       |       digit or dot        || return      ||
+                  dot  |                           || INT_LITERAL ||
+                       v          digit            =================
+                     -----        -----
+                     |   |        |   |
+                     -----        v   |
+                       | digit    ----- any char except digit   ================
+                       ---------> |   | ----------------------> || put back    ||
+                                  -----                         || 1 char;     ||
+                                                                || return      ||
+                                                                || DBL_LITERAL ||
+                                                                =================
+
+</pre>
+

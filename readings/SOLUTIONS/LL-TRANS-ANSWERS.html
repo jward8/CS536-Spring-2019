@@ -1,0 +1,126 @@
+<html>
+<title>Syntax-Directed Translation and Predictive Parsing Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+<P>
+<b>Part a (translation rules)</b>
+<pre>
+exp    -> exp + term       exp<sub>1</sub>.trans = exp<sub>2</sub>.trans + term.trans
+       -> exp - term       exp<sub>1</sub>.trans = exp<sub>2</sub>.trans - term.trans
+       -> term             exp.trans = term.trans
+term   -> term * factor    term<sub>1</sub>.trans = term<sub>2</sub>.trans * factor.trans
+       -> term / factor    term<sub>1</sub>.trans = term<sub>2</sub>.trans / factor.trans
+       -> factor           term.trans = factor.trans
+factor -> INTLITERAL       factor.trans = INTLITERAL.value
+       -> ( exp )          factor.trans = exp.trans
+</pre>
+<P>
+
+<b>Part b (translation actions with numbers)</b>
+<pre>
+exp    -> exp + term       termTrans = pop();        #1
+                           expTrans = pop();         
+			   push(expTrans+termTrans);
+
+       -> exp - term       termTrans = pop();        #2
+                           expTrans = pop();
+			   push(expTrans-termTrans);
+
+       -> term             // do nothing
+
+term   -> term * factor    facterTrans = pop();      #3
+                           termTrans = pop();
+			   push(termTrans*factorTrans);
+
+       -> term / factor    factorTrans = pop();      #4
+                           termTrans = pop();
+			   push(termTrans/factorTrans);
+
+       -> factor           // do nothing
+
+factor -> INTLITERAL       push(INTLITERAL.value)    #5
+
+       -> ( exp )          // do nothing
+</pre>
+
+<b>Part c (CFG with action numbers)</b>
+<pre>
+exp    -> exp + term  #1
+       -> exp - term  #2
+       -> term
+
+term   -> term * factor #3
+       -> term / factor #4
+       -> factor
+
+factor -> #5 INTLITERAL
+       -> ( exp )      
+</pre>
+
+<hr>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+<b>Non-LL(1) CFG with action numbers</b>
+<pre>
+exp    -> exp + term  #1
+       -> exp - term  #2
+       -> term
+
+term   -> term * factor #3
+       -> term / factor #4
+       -> factor
+
+factor -> #5 INTLITERAL
+       -> ( exp )      
+</pre>
+
+<b>Transformed to be LL(1)</b>
+<pre>
+exp    -> term exp'
+
+exp'   -> epsilon
+       -> + term #1 exp'
+       -> - term #2 exp'
+
+term   -> factor term'
+
+term'  -> epsion
+       -> * factor #3
+       -> / factor #4
+
+factor -> #5 INTLITERAL
+       -> ( exp )      
+</pre>
+
+<b>Actions of the predictive parser on input 2+3*4</b>
+
+<pre>
+input so far   stack                           semantic stack  action
+------------   -----                           --------------  ------
+   2           exp EOF                                          pop, push "term exp'"
+   2           term exp' EOF                                    pop, push "factor term'"
+   2           factor term' exp' EOF                            pop, push "#5 INTLITERAL"
+   2           #5 INTLITERAL term' exp' EOF                     pop, do action
+   2           INTLITERAL term' exp' EOF         2              pop, scan
+   2+          term' exp' EOF                    2              pop, push nothing
+   2+          exp' EOF                          2              pop, push "+ term #1 exp'"
+   2+          + term #1 exp' EOF                2              pop, scan
+   2+3         term #1 exp' EOF                  2              pop, push "factor term'"
+   2+3         factor term' #1 exp' EOF          2              pop, push "#5 INTLITERAL"
+   2+3         #5 INTLITERAL term' #1 exp' EOF   2              pop, do action
+   2+3         INTLITERAL term' #1 exp' EOF      3 2            pop, scan
+   2+3*        term' #1 exp' EOF                 3 2            pop, push "* factor #3"
+   2+3*        * factor #3 #1 exp' EOF           3 2            pop, scan
+   2+3*4       factor #3 #1 exp' EOF             3 2            pop, push "#5 INTLITERAL"
+   2+3*4       #5 INTLITERAL #3 #1 exp' EOF      3 2            pop, do action
+   2+3*4       INTLITERAL #3 #1 exp' EOF         4 3 2          pop, scan
+   2+3*4 EOF   #3 #1 exp' EOF                    4 3 2          pop, do action
+   2+3*4 EOF   #1 exp' EOF                       12 2           pop, do action
+   2+3*4 EOF   exp' EOF                          14             pop, push nothing
+   2+3*4 EOF   EOF                               14             pop, push nothing
+   2+3*4 EOF                                     14             empty stack, input accepted
+                                                                final translation = 14
+</pre>

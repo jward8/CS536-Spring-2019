@@ -1,0 +1,71 @@
+<html>
+<title>General Parsing Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+Here is the original grammar:
+<UL>
+<tt>S </tt>&rarr;<tt> id = id</tt><br>
+<tt>S </tt>&rarr;<tt> id ( )</tt><br>
+<tt>S </tt>&rarr;<tt> id ++</tt><br>
+<tt>S </tt>&rarr;<tt> read ( id )</tt><br>
+<tt>S </tt>&rarr;<tt> S S</tt>
+</UL>
+
+<P>
+There are no epsilon or unit rules.
+First, we'll handle rules with terminals on the right, converting
+the CFG to the following:
+<UL>
+<tt>S </tt>&rarr;<tt> I A I</tt>  <br>
+<tt>S </tt>&rarr;<tt> I L R</tt><br>
+<tt>S </tt>&rarr;<tt> I P</tt><br>
+<tt>S </tt>&rarr;<tt> D L I R</tt><br>
+<tt>S </tt>&rarr;<tt> S S</tt>
+<P>
+<tt>I</tt> &rarr;<tt> id</tt><br>
+<tt>A</tt> &rarr;<tt> =</tt><br>
+<tt>L</tt> &rarr;<tt> (</tt><br>
+<tt>R</tt> &rarr;<tt> )</tt><br>
+<tt>P</tt> &rarr;<tt> ++</tt><br>
+<tt>D</tt> &rarr;<tt> read</tt><br>
+</UL>
+<P>
+Next we'll handle the rules with more than one nonterminal on the right,
+converting the CFG above to the following:
+<UL>
+<tt>S </tt>&rarr;<tt> I W</tt><br>
+<tt>S </tt>&rarr;<tt> I X</tt><br>
+<tt>S </tt>&rarr;<tt> I P</tt><br>
+<tt>S </tt>&rarr;<tt> D Y</tt><br>
+<tt>S </tt>&rarr;<tt> S S</tt>
+<P>
+<tt>W </tt>&rarr;<tt> A I</tt>  <br>
+<tt>X </tt>&rarr;<tt> L R</tt><br>
+<tt>Y </tt>&rarr;<tt> L Z</tt><br>
+<tt>Z </tt>&rarr;<tt> I R</tt>
+<P>
+<tt>I</tt> &rarr;<tt> id</tt><br>
+<tt>A</tt> &rarr;<tt> =</tt><br>
+<tt>L</tt> &rarr;<tt> (</tt><br>
+<tt>R</tt> &rarr;<tt> )</tt><br>
+<tt>P</tt> &rarr;<tt> ++</tt><br>
+<tt>D</tt> &rarr;<tt> read</tt><br>
+</UL>
+
+
+<hr>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+<IMG SRC="CYK1.gif">
+<P>
+
+<hr>
+<h3 id="ans3">Test Yourself #3</h3>
+<P>
+Yes, the input <tt>x ++ y = z y ++</tt>
+is in the language of the simple statement grammar.
+We know this because the grammar's start nonterminal,
+<tt>S</tt>, is in the upper-right corner of the grid.

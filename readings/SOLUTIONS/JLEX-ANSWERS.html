@@ -1,0 +1,65 @@
+<html>
+<title>JLex Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+<P>
+<b>Question 1:</b>
+The character class <tt>[a-zA-Z0-9]</tt> matches any letter or any digit.
+<P>
+<b>Question 2:</b>
+The pattern <tt>[a-zA-Z][a-zA-Z0-9]*</tt> matches any Pascal identifier
+(a sequence of one or more letters and/or digits, starting with a letter).
+<P>
+<b>Question 3:</b>
+The pattern <tt>[a-zA-Z_][a-zA-Z0-9_]*</tt>
+matches any C identifier (a sequence of
+one or more letters and/or digits and/or underscores, starting with
+a letter or underscore).
+<P>
+<b>Question 4:</b>
+The pattern <tt>([a-zA-Z_][a-zA-Z0-9_]*[a-zA-Z0-9])|[a-zA-Z]</tt>
+matches any C identifier that does not <em>end</em> with an underscore.
+
+<hr>
+<P>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+NOTSPECIAL = [^\n\"\\]
+<hr>
+<P>
+<h3 id="ans3">Test Yourself #3</h3>
+<P>
+  <pre>
+  class Counter {
+    public static int count;
+  }
+
+  %%
+
+  QUOTE =               [\"]
+  NOT_QUOTE_OR_NEWLINE= [^\"\n]
+
+  %state QUOTED_STR_STATE
+
+  %%
+
+  &lt;YYINITIAL&gt;{QUOTE}          { yybegin(QUOTED_STR_STATE);
+                                Counter.count = 0;
+                              }
+
+  &lt;QUOTED_STR_STATE&gt;{NOT_QUOTE_OR_NEWLINE}*
+                              { // do nothing
+                              }
+
+  &lt;QUOTED_STR_STATE&gt;{QUOTE}{QUOTE}
+                              { Counter.count++;
+                              }
+
+  &lt;QUOTED_STR_STATE&gt;{QUOTE}
+                              { yybegin(YYINITIAL);
+			        return Counter.count;
+                              }
+  </pre>

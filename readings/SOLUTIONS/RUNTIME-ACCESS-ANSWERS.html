@@ -1,0 +1,280 @@
+<html>
+<title>Runtime Variable Access Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+<P>
+<pre>
+FN |  ID  | Type |  Offset in Bytes
+===+======+======+=================
+P1 |   x  | int  |   0
+P1 |   y  | int  |  -4
+P1 |   a  | int  | -16
+P1 |   b  | int  | -20
+P1 |   c  | int  | -24
+P1 |   a  | dbl  | -28
+P1 |   w  | dbl  | -36
+
+P2 |   x  | int  | -8
+P2 |   y  | int  | -12
+P2 |   a  | dbl  | -16
+P2 |   b  | int  | -24
+P2 |   c  | int  | -28
+
+
+</pre>
+<hr>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+<pre>
+Before MAIN calls Q:
+                        +==========+ 
+        MAIN          x:|    2     | 
+                        |----------|
+                        |          |
+                        +==========+
+
+
+Before Q calls R (the x that Q uses is in MAIN's AR):
+                        +==========+ 
+        Q             y:|    2     | 
+                        |----------|     
+                        |    ----------+ 
+                        +==========+   |
+        MAIN          x:|    2     |   |
+                        |----------|   |
+                        |          | <-+
+                        +==========+
+
+Before R calls R (the x that R uses is in MAIN's AR and the y that it uses
+is in Q's AR):
+                        +==========+ 
+        R               |    --------------+     
+                        +==========+       |
+        Q             y:|    5     |       |
+                        |----------|       |
+                        |    ----------+ <-+
+                        +==========+   |
+        MAIN          x:|    3     |   |
+                        |----------|   |
+                        |          |<--+
+                        +==========+
+
+Before R calls P (the x that R uses is in MAIN's AR and the y that it uses
+is in Q's AR):
+                        +==========+               
+        R               |    ------------------+ 
+                        +==========+           |
+        R               |    --------------+ <-+   
+                        +==========+       |  
+        Q             y:|    9     |       |  
+                        |----------|       |  
+                        |    ----------+ <-+ 
+                        +==========+   |
+        MAIN          x:|    4     |   |
+                        |----------|   |
+                        |          |<--+
+                        +==========+
+
+Before P returns (the x that P uses is in MAIN's AR):
+
+                        +==========+               
+        P               |    ----------------------+ 
+                        +==========+               |  
+        R               |    ------------------+ <-+
+                        +==========+           |
+        R               |    --------------+ <-+   
+                        +==========+       |  
+        Q             y:|    9     |       |  
+                        |----------|       |  
+                        |    ----------+ <-+ 
+                        +==========+   |
+        MAIN          x:|    4     |   |
+                        |----------|   |
+                        |          |<--+
+                        +==========+
+
+
+After P returns, the recursive call to R also returns.  Then R
+calls P and the stack looks like this:
+
+                        +==========+               
+        P               |    ------------------+ 
+                        +==========+           |
+        R               |    --------------+ <-+   
+                        +==========+       |  
+        Q             y:|    9     |       |  
+                        |----------|       |  
+                        |    ----------+ <-+ 
+                        +==========+   |
+        MAIN          x:|    4     |   |
+                        |----------|   |
+                        |          |<--+
+                        +==========+
+
+
+Next, both P and R return, and Q calls P.  Then Q calls itself (the
+x it uses to initialize y is in MAIN's AR):
+
+                        +==========+           
+        Q             y:|    4     |
+                        |----------|
+                        |    --------------+ 
+                        +==========+       |  
+        Q             y:|    9     |       |  
+                        |----------|       |  
+                        |    ----------+ <-+ 
+                        +==========+   |
+        MAIN          x:|    4     |   |
+                        |----------|   |
+                        |          |<--+
+                        +==========+
+
+After Q calls R and R updates x and y (x is in MAIN's AR and y is in
+the top AR for Q):
+
+
+                        +==========+           
+        R               |    ------------------+ 
+                        +==========+           |           
+        Q             y:|    9     |           |
+                        |----------|           |
+                        |    --------------+ <-+
+                        +==========+       |  
+        Q             y:|    9     |       |  
+                        |----------|       |  
+                        |    ----------+ <-+ 
+                        +==========+   |
+        MAIN          x:|    5     |   |
+                        |----------|   |
+                        |          |<--+
+                        +==========+
+
+R then calls P, and returns.  Q calls P, then all active procedures return.
+
+</pre>
+
+<hr>
+ v<h3 id="ans3">Test Yourself #3</h3>
+<P>
+<pre>
+After MAIN calls Q (case 1 of setting up access links: Q is inside MAIN):
+                        +==========+ 
+        Q             y:|          | 
+                        |----------|     
+                        |    ----------+ 
+                        +==========+   |
+        MAIN          x:|    2     |   |
+                        |----------|   |
+                        |          | <-+
+                        +==========+
+
+After Q calls R (case 1 of setting up access links; R is inside Q):
+                        +==========+ 
+        R               |    --------------+     
+                        +==========+       |
+        Q             y:|    2     |       |
+                        |----------|       |
+                        |    ----------+ <-+
+                        +==========+   |
+        MAIN          x:|    2     |   |
+                        |----------|   |
+                        |          |<--+
+                        +==========+
+
+After R calls R (case 2 of setting up access links; must follow 0 links
+to find the link to copy into the new AR):
+
+                        +==========+               
+        R               |    ------------------+ 
+                        +==========+           |
+        R               |    --------------+   |
+                        +==========+       |   |
+        Q             y:|    5     |       |   |
+                        |----------|       |   |
+                        |    ----------+ <-+ <-+   
+                        +==========+   |
+        MAIN          x:|    3     |   |
+                        |----------|   |
+                        |          |<--+
+                        +==========+
+
+After R calls P (case 2 of setting up access links; must follow
+3-2 = 1 link to find the link to copy into the new AR):
+
+                        +==========+               
+        P               |    ----------------------+ 
+                        +==========+               |  
+        R               |    ------------------+   |
+                        +==========+           |   |
+        R               |    --------------+   |   |
+                        +==========+       |   |   |
+        Q             y:|    9     |       |   |   |
+                        |----------|       |   |   |
+                        |    ----------+ <-+ <-+   |
+                        +==========+   |           |
+        MAIN          x:|    4     |   |           |
+                        |----------|   |           |
+                        |          |<--+ <---------+
+                        +==========+
+
+
+After P and the recursive call to R return, and R calls P (case 2 of
+setting up access links; must follow 3-2=1 link to find the link to
+copy into the new AR):
+
+                        +==========+               
+        P               |    ------------------+   
+                        +==========+           |   
+        R               |    --------------+   |   
+                        +==========+       |   |   
+        Q             y:|    9     |       |   |   
+                        |----------|       |   |   
+                        |    ----------+ <-+   |
+                        +==========+   |       |
+        MAIN          x:|    4     |   |       |
+                        |----------|   |       |
+                        |          |<--+ <-----+
+                        +==========+
+
+
+After P and R return, and Q calls Q (case 2 of setting up access links;
+must follow 1-1=0 links to find the one to copy):
+
+                        +==========+
+        Q             y:|    4     |
+                        |----------|
+                        |    --------------+
+                        +==========+       |
+        Q             y:|    9     |       |
+                        |----------|       |
+                        |    ----------+   |
+                        +==========+   |   |
+        MAIN          x:|    4     |   |   |
+                        |----------|   |   |
+                        |          |<--+ <-+
+                        +==========+
+
+After Q calls R (case 1 of setting up access links):
+
+                        +==========+           
+        R               |    ------------------+      
+                        +==========+           |
+        Q             y:|    4     |           |
+                        |----------|           |
+                        |    --------------+ <-+
+                        +==========+       |
+        Q             y:|    9     |       |
+                        |----------|       |
+                        |    ----------+   |
+                        +==========+   |   |
+        MAIN          x:|    4     |   |   |
+                        |----------|   |   |
+                        |          |<--+ <-+
+                        +==========+
+
+After this, R calls P, then both P and R return; Q calls P, then both
+P and Q return.  There is nothing new about setting up access links.
+</pre>

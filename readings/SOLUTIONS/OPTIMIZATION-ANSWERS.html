@@ -1,0 +1,70 @@
+<html>
+<title>Optimization Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+<h3 id="ans2">Test Yourself #1</h3>
+<h4>Question 1</h4>
+<b> Removing a redundant load: </b>
+Checking for <tt>if(true)</tt> contributes to redundant load.
+<p>
+<b> Jump to Jump Replacement: </b>
+The <tt>return</tt> statement inside the if block contributes to a jump to jump replacement.
+<h4> Question 2</h4>
+Right after the line <tt>#if-then</tt>, there is a equence of instructions that is a no-op. This corresponds to <tt>if(true)</tt> in the code. Similarly, immediately after the line <tt>#if-then-else</tt> there is another check for <tt>if(true)</tt> which is a no-op.
+<p>
+<tt>_L2</tt> has a jump to <tt>main_Exit</tt> immediately. Can be replaced with just <tt>main_Exit</tt> thus eliminating <tt>_L2</tt>.</p>
+<hr>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+Some examples of loops for which the compiler can be sure that the
+loop will execute at least once:
+<UL>
+   <LI> a repeat loop, i.e., a loop of the form:
+        <pre>
+	do {
+	   &lt; statements &gt;
+	while (&lt;condition&gt;)
+	</pre>
+   <LI> a for loop with a header like this:
+   <br><tt>  for (int k = &lt;low&gt;; k < &lt;high&gt;; k++)
+   </tt><br> where &lt;low&gt; and &lt;high&gt; can be evaluated at
+       compile time (e.g., they are both literal values), and
+       &lt;low&gt;is less than &lt;high&gt;.
+  <P>
+  <LI> a while loop whose initial condition can be evaluated
+       at compile time after some simple optimizations like
+       copy propagation; for example:
+       <pre>
+       x = 0;
+       while (x &lt; 10) { ... }
+       </pre>
+</UL>
+<hr>
+<h3 id="ans3">Test Yourself #3</h3>
+<P>
+As illustrated immediately below this question, a Java compiler
+doesn't have to give up on this optimization.
+A for-loop that uses literals as the low and high bounds,
+use <tt>i++</tt> (where <tt>i</tt> is the loop-index variable)
+as the increment, and doesn't assign to <tt>i</tt> inside
+the loop is a perfect candidate.
+
+<hr>
+<h3 id="ans3">Test Yourself #4</h3>
+<P>
+Strength reduction can still be done if the loop-index variable
+is incremented by any constant amount.
+The only change is to change
+<UL>
+  <LI> incrementing the temporary by <tt>k1</tt> at the end of the loop
+</UL>
+to
+<UL>
+  <LI> incrementing the temporary by <tt>increment</tt> * <tt>k1</tt>
+       at the end of the loop
+</UL>
+Note that the expression <tt>increment</tt> * <tt>k1</tt>
+can be evaluated at compile time, so the increment of the
+temporary still only involves one addition (or subtraction),
+and no multiplications.

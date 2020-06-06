@@ -1,0 +1,169 @@
+<html>
+<title>Parsing Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+<P>
+<pre>
+   grammar: S -> epsilon | ( S ) | [ S ]
+
+   parse table:
+      
+           (         )       [        ]       EOF
+       +--------------------------------------------
+     S | ( S ) | epsilon | [ S ] | epsilon | epsilon
+       +--------------------------------------------
+
+
+   input seen so far   stack         action
+   -----------------   -----         ------
+         [              S EOF       pop, push "[S]"
+         [              [S] EOF     pop, scan (top-of-stack term matches curr token)
+         [[             S] EOF      pop, push "[S]"
+         [[             [S]] EOF    pop, scan (top-of-stack term matches curr token)
+         [[]            S]] EOF     pop, push epsilon (no push)
+         [[]            ]] EOF      pop, scan (top-of-stack term matches curr token)
+         [[]]           ] EOF       pop, scan (top-of-stack term matches curr token)
+         [[]] EOF       EOF         pop, scan (top-of-stack term matches curr token)
+         [[]] EOF                   empty stack: input accepted!
+</pre>
+<hr>
+        
+<P>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+<UL>
+  <LI> The original grammar is:
+  <UL><tt> exp -> ( exp ) | exp exp | ( )</tt></UL>
+  <P>
+  <LI> After left-factoring, the grammar becomes:
+  <UL><tt> exp -> ( exp' | exp exp<BR>
+           exp' -> exp ) | )</tt>
+  </UL>
+  <P>
+  <LI> After removing immediate left-recursion, the grammar becomes:
+  <UL><tt> exp   -> ( exp' exp''<BR>
+           exp'' -> exp exp''  | epsilon<BR>
+           exp' -> exp ) | )</tt>
+  </UL>
+</UL>
+
+<hr>
+<P>
+<h3 id="ans3">Test Yourself #3</h3>
+<P>
+<b>Question 1:</b>
+<pre>
+X                                   First(X)                Follow(X)
+---------------------------------------------------------------------
+methodHeader                        VOID                    EOF
+
+paramList                           epsilon, ID             RPAREN
+
+nonEmptyParamList                   ID                      RPAREN
+
+VOID ID LPAREN paramList RPAREN     VOID
+
+epsilon                             epsilon
+
+nonEmptyParamList                   ID
+
+ID ID                               ID
+
+ID ID COMMA nonEmptyParamList       ID
+</pre>
+
+<P>
+<b>Question 2:</b>
+Note: To save space, the tokens "(" and ")" are used instead of
+LPAREN and RPAREN.
+
+<pre>
+input seen so far   stack                           action
+-----------------   -----                           ------
+ VOID               methodHeader EOF                pop,
+                                                    push "VOID ID ( paramList )"
+
+ VOID               VOID ID ( paramList ) EOF       pop, scan (top-of-stack term matches curr token)
+
+ VOID ID            ID ( paramList ) EOF            pop, scan (top-of-stack term matches curr token)
+
+ VOID ID (          ( paramList ) EOF               pop, scan (top-of-stack ter
+
+ VOID ID ( )        paramList ) EOF                 pop,
+                                                    push nothing; i.e.,
+                                                    choose production paramList -> epsilon
+                                                    because ) is in Follow(paramList)
+                                                    
+ VOID ID ( )        ) EOF                           pop, scan (top-of-stack term matches curr token)
+
+ VOID ID ( ) EOF    EOF                             pop, scan (top-of-stack term matches curr token)
+
+ VOID ID ( ) EOF                                    empty stack: input accepted!
+</pre>
+<hr>
+
+<P>
+<h3 id="ans4">Test Yourself #4</h3>
+<P>
+<UL>
+<pre>
+
+      a     b     c     d     EOF        
+   +-----------------------------+
+ S | B c |     | B c | D B |     |
+   | D B |     | D B |     |     |
+   |-----|-----|-----|-----|-----| 
+ B | a B |     | c S |     |     |
+   |     |     |     |     |     |
+   |-----|-----|-----|-----|-----| 
+ D |epsil|     |epsil| d   |     |
+   |     |     |     |     |     |
+   +-----------------------------+
+</pre>
+</UL>
+
+<P>
+<h3 id="ans5">Test Yourself #5</h3>
+<P>
+<b>Question 1(a):</b>
+<UL>
+<pre>
+A  |	First(A)	       |  Follow(A)
+==============================================
+S  |	epsilon, a, c, d       |  EOF, a, c, d
+---+---------------------------+---------------
+X  |	epsilon, a, c, d       |  a, c, d
+---+---------------------------+---------------
+Y  |	epsilon, a             |  b, c, d
+---+---------------------------+---------------
+Z  |	c, d                   |  EOF, a, c, d
+---+---------------------------+---------------
+</pre>
+
+<P>
+Note that we have these dependences when computing
+Follow sets (i.e., everything in the
+left-side set must be put into the right-side set):
+<UL>
+Follow(X) &rarr; Follow(S)  // because of grammar rule (4)<BR>
+Follow(S) &rarr; Follow(Z)  // because of grammar rule (2)
+</UL>
+
+<P>
+<b>Question 1(b)</b>:
+
+<pre>
+   |     a     |    b   |    c    |    d    |    EOF
+===============+========+=========+=========+=========
+S  |   (1)(2)  |        |  (1)(2) |  (1)(2) |   (1)
+---+-----------+--------+---------+---------+---------
+X  |   (3)(4)  |        |  (3)(4) |  (3)(4) |
+---+-----------+--------+---------+---------+---------
+Y  |    (6)    |   (5)  |   (5)   |   (5)   |
+---+-----------+--------+---------+---------+---------
+Z  |           |        |   (7)   |   (8)   |
+---+-----------+--------+---------+---------+---------
+</pre>

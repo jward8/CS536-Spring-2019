@@ -1,0 +1,168 @@
+body {
+	width: 50%;
+	margin-left: 15%;
+}
+
+tt
+{
+	font-family:"Courier"
+}
+
+ul{
+	list-style:disc;	
+	padding-left:1em;
+}
+
+ul ul{
+	list-style:circle;	
+}
+
+.subhead{
+	/*font-family: 'Open Sans Condensed', sans-serif;*/
+	font-family: 'Dosis', sans-serif;
+	font-weight: 700;
+	color: #1b252a;
+	font-size: 1.6em;
+	margin-top:20px;
+	display:block;
+	line-height:100%;
+	clear: both;
+	text-decoration: none;
+	margin-top:20px;
+}
+
+.subhead:hover{
+	/*text-decoration: underline;*/
+}
+
+.code{
+	font-family:"Cutive Mono", "Courier";
+}
+
+.example{
+	/*font-family: 'Open Sans Condensed', sans-serif;*/
+	font-family: 'Dosis', sans-serif;
+	font-weight: 700;
+	color: #1b252a;
+	font-size: 1.5em;
+	margin-top:20px;
+	display:block;
+	line-height:100%;
+	text-decoration: none;
+	clear: both;
+}
+
+.example::before{
+	content: "Example: ";
+}
+
+.subsubhead{
+	/*font-family: 'Open Sans Condensed', sans-serif;*/
+	font-family: 'Dosis', sans-serif;
+	font-weight: 700;
+	color: #1b252a;
+	font-size: 1.3em;
+	margin-top:20px;
+	display:inline-block;
+	clear: both;
+	text-decoration:none;
+}
+
+.parse_table{
+		width:auto;
+		margin-top:50px;
+		margin-right:50px;
+		border-collapse: separate;
+}
+
+.parse_table_cell{
+		padding-left:10px;
+		padding-right:10px;
+		background-clip: "border-box";
+		border: solid 1px;
+}
+
+.parse_table_head{
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.cfg{
+	width:auto; 
+	border-collapse:separate;
+	background-clip:"border-box";
+	border-spacing:0px;
+	display:block;
+	margin-bottom:30px;
+	margin-top:50px;
+	margin-right:50px;
+}
+
+.cfg_lhs{
+}
+
+.cfg_rhs{
+}
+
+.cfg_trans{
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.cfg_trans::before{
+	content: $\longrightarrow$
+}
+
+.EOF{
+	font-weight:bold;
+	font-family:"Courier";
+}
+
+.EOF::before{
+	content:" EOF ";
+}
+
+.term{
+	font-weight:bold;
+}
+
+.action{
+	font-weight:normal;
+}
+
+.action::before{
+	content: "#"
+}
+
+.nonterm{
+	font-family:"Latin Modern Slant"; 
+	font-weight:600; 
+	color:#333333;
+}
+
+a.tooltip {color:inherit; text-decoration:none}
+a.tooltip strong {line-height:30px;}
+a.tooltip:hover {text-decoration:none;} 
+a.tooltip span {
+    z-index:10;display:none; padding:14px 20px;
+    margin-top:-30px; margin-left:28px;
+    width:240px; line-height:16px;
+}
+a.tooltip:hover span{
+    display:inline; position:absolute; color:#111;
+    border:1px solid #DCA; background:#fffAF0;}
+.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
+    
+/*CSS3 extras*/
+a.tooltip span
+{
+    border-radius:4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+        
+    -moz-box-shadow: 5px 5px 8px #CCC;
+    -webkit-box-shadow: 5px 5px 8px #CCC;
+    box-shadow: 5px 5px 8px #CCC;
+}
+
+.MathJax nobr>span.math>span{border-left-width:0 !important};

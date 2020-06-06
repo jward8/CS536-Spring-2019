@@ -1,0 +1,108 @@
+<html>
+<title>Code Generation Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+<P>
+<H2>Question 1</H2>
+<P>
+<OL>
+  <LI> Evaluate the condition, leaving the value on the stack
+  <LI> Pop the top-of-stack value into register T0
+  <LI> Jump to ElseLabel if T0 == FALSE
+  <LI> Code for the statement list in If
+  <LI> Jump to DoneLabel
+  <LI> ElseLabel:
+  <LI> Code for the statement list in Else
+  <LI> DoneLabel:
+</OL>
+
+<P>
+<H2>Question 2</H2>
+<P>
+<pre>
+public void codeGen() {
+  String falseLabel = Codegen.nextLabel();
+  myExp.codeGen();
+  Codegen.genPop(Codegen.T0);
+  Codegen.generate("beq", Codegen.T0, Codegen.FALSE, falseLabel);
+  myStmtList.codeGen();
+  Codegen.genLabel(falseLabel);
+}
+</pre>
+
+<P>
+<H2>Question 3</H2>
+<P>
+<OL>
+  <LI> LoopLabel:
+  <LI> Evaluate the condition, leaving the value on the stack.
+  <LI> Pop the top-of-stack value and see if it's zero; if zero, jump to DoneLab
+  <LI> Code for the statements in the body of the loop.
+  <LI> Jump to LoopLabel
+  <LI> DoneLabel:
+</OL>
+
+<hr>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+<tt>AndNode</tt><br>
+<OL>
+  <LI> code to evaluate the left operand, jumping to FalseLab if 0
+  <LI> code to evaluate the right operand
+  <LI> FalseLab:
+</OL>
+
+<P>
+<tt>OrNode</tt><br>
+<OL>
+  <LI> code to evaluate the left operand, jumping to TrueLab if 1
+  <LI> code to evaluate the right operand
+  <LI> TrueLab:
+</OL>
+
+<hr>
+<h3 id="ans3">Test Yourself #3</h3>
+<P>
+<tt> OrNode </tt>
+<OL>
+  <LI> code to evaluate left operand with jumps to TrueLab and L1
+  <LI> L1:
+  <LI> code to evaluate right operand with jumps to TrueLab and FalseLab
+</OL>
+<tt> NotNode </tt>
+<OL>
+  <LI> code to evaluate the operand with jumps to TrueLab and FalseLab
+</OL>
+
+<hr>
+<h3 id="ans4">Test Yourself #4</h3>
+<P>
+<tt> OrNode </tt>
+<pre>
+   Numeric Code                           Control-Flow Code
+   ------------                           -----------------
+   -- code to evaluate left operand,      -- code to evaluate left operand,
+   -- leaving the value on the stack      -- with jumps to TrueLab and L1
+
+   pop; if zero goto FalseLab             L1:
+   push 1
+   goto DoneLab
+FalseLab:
+
+   -- code to evaluate right operand,     -- code to evaluate right operand,
+   -- leaving the value on the stack      -- with jumps to TrueLab and FalseLab
+DoneLab:                                  
+</pre>
+
+<tt> NotNode </tt>
+<pre>
+   Numeric Code                           Control-Flow Code
+   ------------                           -----------------
+   -- code to evaluate the operand,       -- code to evaluate the operand,
+   -- leaving the value on the stack      -- with jumps to TrueLab and FalseLab
+
+   pop; if zero push 1 else push 0        
+</pre>

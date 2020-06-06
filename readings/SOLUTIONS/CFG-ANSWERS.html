@@ -1,0 +1,64 @@
+<html>
+<title>CFG Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+<P>
+The new production is: <tt> stmt </tt>&rarr;<tt> WHILE LPAREN bexp RPAREN stmt </tt>
+
+<hr>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+<b>Question 1:</b>
+<tt>
+stmt => if ( bexp ) stmt => if ( ! bexp ) stmt => if ( ! true ) stmt =>
+if ( ! true ) ID = bexp ; => if ( ! true ) ID = false ;
+</tt>
+<P>
+This derivation is a <em>leftmost</em> derivation.
+
+<P>
+<b>Question 2:</b>
+<P>
+<IMG SRC="Q2Parse.gif">
+<P>
+
+<hr>
+<h3 id="ans3">Test Yourself #3</h3>
+<P>
+<P>
+<IMG SRC="Q3Parse.gif">
+<P>
+
+<hr>
+<h3 id="ans2">Test Yourself #4</h3>
+<P>
+<b>Question 1:</b>
+<P>
+This grammar enforces precedences, but not associativities:
+<UL>
+<tt>
+bexp </tt>&rarr;<tt>    bexp OR bexp       |  bterm
+<BR>bterm </tt>&rarr;<tt>   bterm AND bterm    |  bfactor
+<BR>bfactor </tt>&rarr;<tt> NOT bfactor        |  bfinal
+<BR>bfinal </tt>&rarr;<tt>  LPAREN bexp RPAREN |  TRUE     |  FALSE
+</tt>
+</UL>
+
+This grammar enforces precedences and associativities:
+<UL>
+<tt>
+bexp </tt>&rarr;<tt>    bexp OR bterm        |  bterm
+<BR>bterm </tt>&rarr;<tt>   bterm AND bfactor    |  bfactor
+<BR>bfactor </tt>&rarr;<tt> NOT bfactor          |  bfinal
+<BR>bfinal </tt>&rarr;<tt>  LPAREN bexp RPAREN   |  TRUE     |  FALSE
+</tt>
+</UL>
+
+
+<b>Question 2:</b>
+<P>
+<IMG SRC="Q4Parse.gif">
+<P>

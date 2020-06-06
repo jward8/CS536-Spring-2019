@@ -1,0 +1,93 @@
+<html>
+<title>Parameters Answers</title>
+
+<body>
+<h2 id="answers">Answers to Self-Study Questions</h2>
+
+<h3 id="ans1">Test Yourself #1</h3>
+<P>
+When the program executes, this is printed:
+<pre>
+  10
+  Ann
+</pre>
+This is because the assignment <tt>P.age = 10</tt> in method
+<tt>changePerson</tt> modifies the <tt>age</tt> field of the
+object in the heap pointed to by its <tt>Person</tt> parameter,
+which is the same object pointed to by variable <tt>P</tt> in
+<tt>main</tt>.
+<P>
+However, the modification to the <tt>name</tt> field has no effect
+on the <tt>Person</tt> pointed to by <tt>main</tt>'s <tt>P</tt>,
+because when that statement is executed,
+formal parameter <tt>P</tt> has already been set to point to a
+different <tt>Person</tt> object.
+<hr>
+<h3 id="ans2">Test Yourself #2</h3>
+<P>
+Here are pictures assuming that parameters are passed by value.
+Only the space for parameters and local variables is shown for the
+ARs.
+<P>
+Stack when <tt>swap</tt> is first called:
+<pre>
+       +====+
+    y: | 20 |
+       +----+
+    x: | 10 |
+       +====+        +-------------------+
+    A: |  ---------> | 10 | 20 | 30 | 40 |
+       +====+        +-------------------+
+</pre>
+
+Stack just before <tt>swap</tt> returns:
+<pre>
+       +====+
+    y: | 10 |
+       +----+
+    x: | 20 |
+       +====+        +-------------------+
+    A: |  ---------> | 10 | 20 | 30 | 40 |
+       +====+        +-------------------+
+</pre>
+
+Here are pictures assuming that parameters are passed by reference.
+Only the space for parameters and local variables is shown for the
+ARs.
+<P>
+Stack when <tt>swap</tt> is first called:
+<pre>
+       +====+
+    y: | -------------------+
+       +----+               |
+    x: | --------------+    |
+       +====+          v    v
+    A: |  ---------> +-------------------+
+       +====+        | 10 | 20 | 30 | 40 |
+		     +-------------------+
+</pre>
+
+Stack just before <tt>swap</tt> returns:
+<pre>
+       +====+
+    y: | -------------------+
+       +----+               |
+    x: | --------------+    |
+       +====+          v    v
+    A: |  ---------> +-------------------+
+       +====+        | 20 | 10 | 30 | 40 |
+		     +-------------------+
+</pre>
+<h3 id="ans3">Test Yourself #3</h3>
+<P>
+Test Yourself #3:
+
+One way the caller can implement it is as follows.
+<pre>
+la $t0 _x		# Load address of _x into T0
+sw $t0 0($sp)		
+subu $sp $sp 4		# Move stack pointer 
+lw $t0 _y		# Load value of _y into T0
+sw $t0 0($sp)
+</pre>
+subu $sp $sp 4		# Move stack pointer
