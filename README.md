@@ -2,6 +2,10 @@
 
 ## Links
 
+- [GitHub Repo](https://github.com/ShawnZhong/CS536-Spring-2019)
+
+- [GitHub Pages](https://shawnzhong.github.io/CS536-Spring-2019/)
+
 - [Course Homepage](http://pages.cs.wisc.edu/~loris/cs536/)
 
 ## Projects
