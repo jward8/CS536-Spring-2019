@@ -1,0 +1,390 @@
+<html>
+
+<tr><td class="headerBG">
+<h1>CS536 Programming Assignment 3<br>
+<b> Due on March 2nd 2020, 11pm</b><br>
+
+<tr><td class="regBG">
+<h2 id="Overview">Overview</h2>
+<p class="reg">For this assignment you will use the parser-generator <b>Java Cup</b>
+to write a parser for the <tt>Wumbo</tt> language.
+The parser will find syntax errors and, for syntactically correct programs,
+it will build an abstract-syntax tree (AST) representation of the program.
+You will also write methods to <b>unparse</b> the AST built by
+your parser and an input file to test your parser. A main program,
+<a href="./files/P3.java"><tt>P3.java</tt></a>, that
+calls the parser and then the unparser is  provided for you to use.
+You will be graded on the correctness of your parser and your unparse methods
+and on how thoroughly your input file tests the parser.
+In particular, you should write an input file that causes  the action associated with every grammar rule in your Java CUP specification to be executed at least once.</p>
+</td></tr>
+
+<tr><td></td></tr> <!-- space between items -->
+
+<tr><td class="regBG">
+<h2 id="Specifications">Specifications</h2>
+
+<ul class="reg">
+  <li> <a href="#starting">Getting started</a></li>
+  <li> <a href="#prec">Operator Precedences and Associativities</a></li>
+  <li> <a href="#ast">Building an AST</a></li>
+  <li> <a href="#unparsing">Unparsing</a></li>
+  <li> <a href="#astJava">Modifying <tt>ast.java</tt></a></li>
+  <li> <a href="#testing">Testing</a></li>
+  <li> <a href="#suggest">Suggestions for How to Work on This Assignment</a></li>
+</ul>
+
+<h3 id="starting">Getting Started</h3>
+<p class="reg">
+Skeleton files on which you should build are in the following zip file:
+</p>
+<b><a href="./p3.zip">p3.zip</a> contains all files below.</b>
+
+<ul class="reg">
+  <li><a href="./files/Wumbo.jlex"><tt>Wumbo.jlex</tt></a>:
+       A JLex specification for the Wumbo language (a solution to program 2 plus additional REPEAT token).
+       Please use this version instead of your version implemented for P2.</li>
+  <li><a href="./files/Wumbo.cup"><tt>Wumbo.cup</tt></a>:
+       A Java CUP specification for a very small subset of the <tt>Wumbo</tt>
+       language (you will need to add to this file).</li>
+  <li><a href="./files/Wumbo.grammar"><tt>Wumbo.grammar</tt></a>:
+       A CFG for the <tt>Wumbo</tt> language.  Use this to guide the enhancements
+       you make to <tt>Wumbo.cup</tt>.</li>
+  <li><a href="./files/ast.java"><tt>ast.java</tt></a>:
+       Contains class definitions for the AST structure that the parser
+       will build (you will need to add unparsing code to this file, but you should <em>not</em> add any new classes, fields, or methods).</li>
+  <li><a href="./files/P3.java"><tt>P3.java</tt></a>:
+       The main program that calls the parser, then, for a successful
+       parse, calls the unparser (no changes needed).
+       <br>
+       Use <tt>make test</tt> to run P3 using <tt>test.wumbo</tt> as the input,
+       and sending the unparsed output to file <tt>test.out</tt>.
+       Alternatively run it as follows:
+        <p><tt>java P3 test.wumbo test.out</tt></p>
+       </li>
+  <li><a href="./files/Makefile"><tt>Makefile</tt></a>: A Makefile for
+       program 3 (no changes needed).</li>
+  <li><a href="./files/test.wumbo"><tt>test.wumbo</tt></a>:
+       Input for the current version of the parser (you will need to
+       change this file).</li>
+  <li><a href="./files/ErrMsg.java"><tt>ErrMsg.java</tt></a>:
+       Same as for program 2 (no changes needed).</li>
+
+</ul>
+
+<p class="reg">
+Here is a link to the Java CUP
+<a href="http://www.cs.princeton.edu/~appel/modern/java/CUP/manual.html">
+reference manual</a>. There is also a link in the "Tools" section of the "Resources" menu on the course website.</p>
+
+<h3 id="prec">Operator Precedences and Associativities</h3>
+<p class="reg">
+The Wumbo grammar in the file <tt>Wumbo.grammar</tt> is ambiguous;
+it does not uniquely define the precedences and associativities of
+the arithmetic, relational, equality, and logical operators.
+You will need to add appropriate precedence and associativity declarations
+to your Java CUP specification.
+<ul>
+  <li><p class="reg">Assignment is right associative.</p></li>
+
+  <li>
+    <p class="reg">The dot operator  is left associative.</p></li>
+
+  <li><p class="reg">The relational
+    and equality operators (&lt;, &gt;, &lt;=, &gt;=, ==, and !=) are
+    non-associative (i.e., expressions like <tt>a &lt; b &lt; c</tt>
+    are not allowed and should cause a syntax error).
+    </p></li>
+
+  <li><p class="reg">All of the other binary operators are left associative.
+  </p></li>
+
+    <li><p class="reg">The unary minus and not (!) operators have the highest
+       precedence, then multiplication and division,
+       then addition and subtraction,
+       then the relational and equality operators, then the logical
+       <i>and</i> operator (&amp;&amp;), then the logical <i>or</i> operator (||), and finally the assignment operator (=).
+       </p></li>
+</ul>
+<p class="reg">
+Note that the same token (MINUS) is used for both the unary and binary minus
+operator, and that they have different precedences;
+however, the Wumbo grammar has been written so that the unary minus operator
+has the correct (highest) precedence;
+therefore, you can declare MINUS to have
+the precedence appropriate for the binary minus operator.</p>
+<p class="reg">
+Java Cup will print a message telling you how many <em>conflicts</em>
+it found in your grammar.
+If the number is not zero, it means that your grammar is still
+ambiguous and the parser is unlikely to work correctly.
+<b>Do not ignore this!</b>
+Go back and fix your specification so that your grammar is not ambiguous.
+</p>
+
+<h3 id="ast">Building an Abstract-Syntax Tree</h3>
+<p class="reg">
+To make your parser build an abstract-syntax tree, you must add new
+productions, declarations, and actions to <tt>Wumbo.cup</tt>.
+You will need to decide, for each nonterminal that you add, what
+type its associated value should have.
+Then you must add the appropriate nonterminal
+declaration to the specification.
+For most nonterminals, the value will either be some kind of tree node
+(a subclass of <tt>ASTnode</tt>) or a <tt>LinkedList</tt>
+of some kind of node
+(use the information in <tt>ast.java</tt> to guide your decision).
+Note that you cannot use parameterized types for the types of  nonterminals;  so if the translation of a nonterminal is a <tt>LinkedList</tt>  of some kind of node, you will have to declare its type as  just plain <tt>LinkedList</tt>.  </p>
+<p class="reg">You must also add actions to each new grammar production that you add to <tt>Wumbo.cup</tt>. Make sure that each action ends by  assigning
+  an appropriate value to <tt>RESULT</tt>.
+  Note that the parser will return a <tt>Symbol</tt> whose <tt>value</tt>
+  field contains the value assigned to <tt>RESULT</tt> in the production
+  for the root nonterminal (nonterminal <tt>program</tt>).
+</p>
+
+
+<h3 id="unparsing">Unparsing</h3>
+<p class="reg">
+To test your parser, you must write the <tt>unparse</tt>
+methods for the subclasses of <tt>ASTnode</tt> (in the file <tt>ast.java</tt>).
+When the <tt>unparse</tt> method of the root node of the program's
+abstract-syntax tree is called, it should print a nicely formatted
+version of the program (this is called <em>unparsing</em>
+the abstract-syntax tree).
+The output produced by calling <tt>unparse</tt> should be the
+same as the input to the parser except that:
+</p>
+<ol class="reg">
+  <li>There will be no comments in the output.</li>
+  <li>The output will be &quot;pretty printed&quot; (newlines and indentation
+       will be used to make the program readable); and</li>
+  <li> Expressions will be fully parenthesized to reflect the order of
+       evaluation.</li>
+</ol>
+
+<p class="reg">
+For example, if the input program includes:
+</p>
+<dir>
+<pre>if (b == -1) { x = 4+3*5-y; while (c) { y = y*2+x; } } else { x = 0; }
+</pre>
+</dir>
+<p class="reg">
+the output of <tt>unparse</tt> should be something like the following:
+</p>
+<dir>
+<pre>if ((b == (-1))) {
+    x = ((4 + (3 * 5)) - y);
+    while (c) {
+        y = ((y * 2) + x);
+    }
+}
+else {
+    x = 0;
+}
+</pre>
+</dir>
+<p class="reg">
+To make grading easier, put open curly braces on the <em>same</em>
+line as the preceding code and put closing curly braces on a line with no
+other code (as in the example above).
+Put the first statement in the body of an <tt>if</tt> or <tt>while</tt>
+on the line following the open curly brace.
+Whitespace within a line is up to you (as long as it looks reasonable).
+</p>
+<p class="reg">
+Note: Trying to unparse a tree will help you determine whether you have
+built the tree correctly in the first place.
+Besides looking at the output of your unparser, you should try
+using it as the input to your parser;
+if it doesn't parse, you've made a mistake either in how you built
+your abstract-syntax tree or in how you've written your unparser.
+</p>
+<p class="reg">
+It is a good idea to work incrementally
+ (see <a href="#suggest">Suggestions for How to Work on This Assignment</a> below for more detailed suggestions):
+ </p>
+<ul class="reg">
+  <li>Add a few grammar productions to <tt>Wumbo.cup</tt>.
+  <li>Write the corresponding <tt>unparse</tt> operations.
+  <li>Write a test program that uses the new language constructs.
+  <li>Create a parser (using <tt>make</tt>) and run it on your test program.
+</ul>
+
+
+<h3 id="astJava">Modifying <tt>ast.java</tt> (IMPORTANT) </h3>
+<p class="reg">
+We will test your program by <b>using our <tt>unparse</tt>
+methods on your abstract-syntax trees</b> and by <b>using your <tt>unparse</tt> methods
+on our abstract-syntax trees.</b>
+To make this work, you will need to:
+</p>
+<ol class="reg">
+  <li>Modify <tt>ast.java</tt> <b>only</b> by filling in
+       the bodies of the <tt>unparse</tt> methods (and you must fill in all of the
+       method bodies).
+  <li>Make sure that <b>no field is null</b> (i.e., when you call the
+       constructor of a class with a <tt>LinkedList</tt> argument, that argument should
+       never be null).
+       The only two exceptions to these are <tt>ReturnStmtNode</tt> and <tt>CallExpNode</tt>; it is OK to make the <tt>ExpNode</tt> field of a <tt>ReturnStmtNode</tt> null
+       (when no value is returned), likewise for the <tt>ExpListNode</tt> field of a <tt>CallExpNode</tt> (when the call has no arguments).
+        Thus, you shouldn't be checking to see if a field is null or not, other than in these two nodes.
+  <li>Follow the convention that the <tt>mySize</tt> field of a
+       <tt>VarDeclNode</tt> has the value <tt>VarDeclNode.NOT_STRUCT</tt> if the type
+       of the declared variable
+       is a non-struct type.
+</ol>
+
+
+<h3 id="testing">Testing</h3>
+<p class="reg">
+Part of your task will be to write an input file called <tt>test.wumbo</tt> that thoroughly
+tests your parser and your unparser.
+You should be sure to include code that corresponds to every grammar  rule in the file <tt>Wumbo.grammar</tt>.
+</p>
+<p class="reg">Note that since you are to provide only <em>one</em> input file,
+  <tt>test.wumbo</tt> should contain no syntax errors (you should also test your
+  parser on some bad inputs, but don't hand those in).
+</p>
+<p class="reg">You will probably find it helpful to use comments  in <tt>test.wumbo</tt> to explain what aspects of the parser are  being tested, but your testing grade will depend only on how  thoroughly the file tests the parser.</p>
+<h3 id="suggest">Suggestions for How to Work on This Assignment</h3>
+<p class="reg">
+This assignment involves three main tasks:
+</p>
+<ol class="reg">
+  <li>Writing the parser specification (<tt>Wumbo.cup</tt>).</li>
+  <li>Writing the unparse methods for the AST nodes (in <tt>ast.java</tt>).</li>
+  <li>Writing an input file (<tt>test.wumbo</tt>) to test your implementation.</li>
+</ol>
+<p class="reg">
+If you work with a partner,  it is a good idea to share responsibility for all tasks  to ensure that both partners understand all aspects of the assignment.
+</p>
+<p class="reg">
+We suggest that you proceed as follows, testing your parser
+after each change
+(if you are working alone, we still suggest that you follow the basic steps outlined below, just do them all yourself):
+</p>
+<ul>
+  <li><p class="reg">Working together, start by making a very small change
+       to <tt>Wumbo.cup</tt>.
+       For example, add the rules and actions for:</p>
+       <dir><pre>type ::= BOOL
+type ::= VOID</pre></dir>
+<p class="reg">
+       Also update the appropriate <tt>unparse</tt> method in
+       <tt>ast.java</tt>.
+       Make sure that you can create and run the parser after making
+       this small change.
+         (To create the parser, just type <tt>make</tt> in the directory         where you are working.)
+         </p></li>
+  <li>
+    <p class="reg">Next, add the rules needed to allow struct declarations.
+  </p></li>
+  <li>
+    <p class="reg">Next, add the rules needed to allow programs to include functions
+       with no formal parameters and with empty statement lists only, and update the
+       corresponding <tt>unparse</tt> methods.
+       </p></li>
+  <li><p class="reg">Still working together, add the rules (and <tt>unparse</tt> methods)
+       for the simplest kind of expressions -- just plain identifiers.
+       </p></li>
+  <li><p class="reg">Now divide up the statement nonterminals into two parts, one part for
+       each person.
+       </p></li>
+  <li><p class="reg">Each person should extend their own copy of <tt>Wumbo.cup</tt>
+       by adding rules for their half of the statements, and should extend
+       their own copy of <tt>ast.java</tt> to define the unparse methods
+       needed for those statements.
+       </p></li>
+  <li>
+    <p class="reg">Write test inputs for your statements and your partner's statements.
+  </p></li>
+  <li><p class="reg">After each person makes sure that their parser and unparser
+       work on their own statements, combine the two by cutting and
+       pasting one person's grammar rules into the other person's
+       <tt>Wumbo.cup</tt> (and similarly for <tt>ast.java</tt>).
+       </p></li>
+  <li>
+    <p class="reg">Now divide up the expression nonterminals into two parts and
+       implement those using a similar approach.
+       Note that you will also need to give the operators the right
+       precedences and associativities during this step (see
+       <a href="#prec">above</a>).
+       </p></li>
+  <li><p class="reg">Divide up any remaining productions that need to be added,
+       and add them.
+       </p></li>
+  <li>
+    <p class="reg">Talk about what needs to be tested and decide together what your
+       final version of <tt>test.wumbo</tt> should include.
+       </p></li>
+  <li>
+    <p class="reg">When working on your own, do <em>not</em> try to implement all of
+       your nonterminals at once.  Instead, add one new rule at a time
+       to the Java CUP specification, make the corresponding changes
+       to the <tt>unparse</tt> methods in <tt>ast.java</tt>, and test
+       your work by augmenting your <tt>test.wumbo</tt> or by writing a <tt>Wumbo</tt>
+       program that includes the new construct you added, and make sure
+       that it is parsed and unparsed correctly.</p></li>
+</ul>
+<p class="reg">
+If you worked alone on the previous program and are now working with
+a partner, see programming assignment 2 for more suggestions on how to work in pairs.
+</td>
+</tr>
+
+<tr><td></td></tr> <!-- space between items -->
+
+<tr><td class="regBG">
+<h2 id="Handin">Handing in</h2>
+<p class="reg"> Please read the following handing in instructions carefully.
+You will need to submit all the files in the entire working folder as a compressed zip file as given below.<br> <br>
+
+lastname.firstname.lastname.firstname.P3.zip <br>
++---+ deps/ <br>
++---+ ast.java <br>
++---+ Wumbo.cup <br>
++---+ Wumbo.grammar <br>
++---+ Wumbo.jlex <br>
++---+ ErrMsg.java <br>
++---+ Makefile <br>
++---+ P3.java <br>
++---+ test.wumbo <br>
++---+ lastname.firstname.lastname.firstname.P3.pdf <br>
+ <br>
+<b>Please ensure that you do not include any extra sub-directories.</b>
+<br>  <br>
+If you are working in a pair, have only one member submit the program. <b>Include both persons' name as given above. </b> Also, mention the teammate's name as a comment while submitting the assignment on canvas.</p>
+
+<div style="border-style: solid; border-color: orange">
+
+     <h3>Joining a Canvas group with your partner (also required for those who work alone)</h3>
+
+     <p class="reg">
+     To faciliate grading, before you submit the compressed file, please join a Canvas group with your partner (<a href="https://community.canvaslms.com/docs/DOC-10516-421264913">guide</a>) so you can both receive grades for the same submission. Since you're working on P3, please join an empty group whose name is in the form of "<strong>P3-Pair #</strong>" (type "P3" in the search bar). Note that we have created the groups for you so you only need to join an empty one with your partner. If you work alone, please join an empty group as well.
+</p>
+
+</div>  
+
+
+<tr><td class="regBG">
+<h2 id="Grading">Grading criteria</h2>
+<p class="reg">
+General information on program
+grading criteria can be found
+on the <a href="http://pages.cs.wisc.edu/~loris/cs536/asn.html">Assignments</a> page.
+</p>
+<p class="reg">
+For more advice on Java programming style, see
+<a href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html">
+Code Conventions for the Java Programming Language.</a>
+See also the
+    <a href="http://www.cs.wisc.edu/~cs302/resources/guides/style.html">style</a> and
+    <a href="http://www.cs.wisc.edu/~cs302/resources/guides/commenting.html">commenting</a>
+    standards used in CS 302 and CS 367.
+</p>
+</td></tr>
+</table>
+</body>
+
+</html>

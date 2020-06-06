@@ -1,0 +1,575 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CS536 Programming Assignment 4</title>
+<link rel="stylesheet" type="text/css" href="../../webpage.css">
+<style>
+<!--
+h1, h2, h3 { margin-top:0; margin-bottom:-10 }
+table.page   { align: center; width: 100%; border: no }
+p.navigation { font-size: 70%; color: #006600 }
+p.sectionDesc { font-size: 90%; font-weight: bold; color: #000080 }
+.subtitle { font-size: 70%; font-weight: normal; color: #006600 }
+.reg { font-size: 90% }
+.headerBG { background-color: #cde7f0 }
+.standoutBG { background-color: #e0f8ec }
+.regBG { background-color: #ffffff }
+.bottomStyle { font-size: 70%; color: #FFFFFF}
+-->
+</style>
+</head>
+
+<body>
+
+<table class="page" cellpadding="8" cellspacing="0">
+
+<tr><td>
+    <h1>CS536 Programming Assignment 4</h1><br>
+
+<h2>Due by 11:00 pm on March 30, 2020</h2>
+
+
+</td></tr>
+
+<tr><td></td></tr> <!-- space between items -->
+
+
+<tr><td class="regBG">
+<h2 id="Overview">Overview</h2>
+<p class="reg">For this assignment you will write a name analyzer
+for Wumbo programs represented as abstract-syntax trees.
+Your main task will be to write <i>name analysis</i>
+methods for the nodes of the AST.
+In addition you will need to:</p>
+<ol class="reg">
+  <li>Modify the <tt>Sym</tt> class (by including some
+       new fields and methods and/or by defining some subclasses).</li>
+  <li>Modify the <tt>IdNode</tt> class in <tt>ast.java</tt> (by including
+    a new <tt>Sym</tt> field and by modifying its <tt>unparse</tt> method).</li>
+  <li>Modify <tt>P4.java</tt> (an extension of <tt>P3.java</tt>).</li>
+  <li>Modify the <tt>ErrMsg</tt> class.</li>
+  <li>Write two test inputs: <tt>nameErrors.wumbo</tt> and <tt>test.wumbo</tt>
+       to test your new code.</li>
+</ol>
+</td></tr>
+
+<tr><td></td></tr> <!-- space between items -->
+
+<tr><td class="regBG">
+<h2 id="Specifications">Specifications</h2>
+
+<ul class="reg">
+  <li><a href="#starting">Getting Started</a></li>
+  <li><a href="#nameAnalysis">Name Analysis</a>
+    <ul>
+	  <li><a href="#handlingStructs"><tt>struct</tt> Handling Issues</a></li>
+	  <li><a href="#errorReporting">Error Reporting</a></li>
+	</ul>
+  </li>
+  <li><a href="#other">Other Tasks</a>
+    <ul>
+      <li><a href="#classSymbol">Extending the <tt>Sym</tt> Class</a></li>
+      <li><a href="#idnode">Modifying the <tt>IdNode</tt> Class</a></li>
+      <li><a href="#P4">P4.java</a></li>
+      <li><a href="#errorHandling">Modifying the <tt>ErrMsg</tt> Class</a></li>
+      <li><a href="#testFiles">Writing Test Inputs</a></li>
+  </ul></li>
+  <li><a href="#advice">Some Advice</a></li>
+</ul>
+
+<h3 id="starting">Getting Started</h3>
+<p class="reg">
+The files are:
+</p>
+
+<ul class="reg">
+  <li><a href="./files/Sym.java"><tt>Sym.java</tt></a>
+  <li><a href="./files/SymTable.java"><tt>SymTable.java</tt></a>
+  <li><a href="./files/DuplicateSymException.java"><tt>DuplicateSymException.java</tt></a>
+  <li><a href="./files/EmptySymTableException.java"><tt>EmptySymTableException.java</tt></a>
+  <li><a href="./files/ErrMsg.java"><tt>ErrMsg.java</tt></a>
+  <li><a href="./files/Wumbo.cup"><tt>Wumbo.cup</tt></a>
+  <li><a href="./files/Wumbo.jlex"><tt>Wumbo.jlex</tt></a>
+  <li><a href="./files/ast.java"><tt>ast.java</tt></a>
+  <li><a href="./files/P4.java"><tt>P4.java</tt></a>	  
+  <li><a href="./files/Makefile"><tt>Makefile</tt></a>
+  <li><a href="./files/nameErrors.wumbo"><tt>nameErrors.wumbo</tt></a>
+  <li><a href="./files/test.wumbo"><tt>test.wumbo</tt></a>
+</ul>
+
+<p class="reg">
+  Here is <a href="./files/p4.zip"><tt>p4.zip</tt></a> file. It is recommended to start your project with it.
+</p>
+
+<h3 id="nameAnalysis">Name Analysis</h3>
+<p class="reg">
+The name analyzer will perform the following tasks:</p>
+<ol class="reg">
+
+  <li><p><b>Build symbol tables.</b>
+       You will use the "list of hashtables" approach (using the
+       <tt>SymTable</tt> class from program 1).
+  </p></li>
+
+  <li><p><b>Find multiply declared names, uses of undeclared names,
+       bad <tt>struct</tt> accesses, and bad declarations.</b>
+       Like C, the Wumbo language allows the same name to be declared
+       in non-overlapping or nested scopes.
+       The formal parameters of a function
+       are considered to be in the same scope as the function body.
+       All names must be declared before they are used.
+
+	   A <i>bad</i> <tt>struct</tt> access happens when either the left-hand
+	   side of the dot-access is not a name already declared to be of a
+	   <tt>struct</tt> type or the right-hand side of the dot-access is
+	   not the name of a field for the appropriate type of <tt>struct</tt>.
+
+       A <i>bad</i> declaration is a declaration of anything other
+       than a function to be of type <tt>void</tt> as well as the
+	   declaration of a variable to be of a <i>bad</i> <tt>struct</tt> type
+	   (the name of the <tt>struct</tt> type doesn't exist or is not a <tt>struct</tt> type).
+  </p></li>
+
+  <li><p><b>Add <tt>IdNode</tt> links</b>:
+       For each <tt>IdNode</tt> in the abstract-syntax tree that
+       represents a <i>use</i> of a name (not a declaration)
+       add a "link" to the corresponding symbol-table entry.
+       (As stated above, you will need to modify the <tt>IdNode</tt>
+       class in <tt>ast.java</tt> to have a new field of type <tt>Sym</tt>.
+       That is the field that your name analyzer will fill in with
+       a link to the <tt>Sym</tt> returned by the symbol table's
+       <tt>globalLookup</tt> method.)
+  </p></li>
+</ol>
+<p class="reg">
+You must implement your name analyzer by writing appropriate methods
+for the different subclasses of <tt>ASTnode</tt>.
+Exactly what methods you write is up to you (as long as they do name
+analysis as specified).
+</p>
+<p class="reg">
+It may help to
+start by writing the name analysis method for <tt>ProgramNode</tt>,
+then work "top down", adding a method for <tt>DeclListNode</tt>
+(the child of a <tt>ProgramNode</tt>), then for each kind of
+<tt>DeclNode</tt> (except <tt>StructDeclNode</tt>), and so on
+(and then handle <tt>StructDeclNode</tt> and perhaps other <tt>struct</tt>
+related nodes at the end).
+Be sure to think about which nodes' methods need to add a new hashtable
+to the symbol table (i.e., when is a new scope being entered) and
+which methods need to remove a hashtable from the symbol table
+(i.e., when is a scope being exited).
+</p>
+<p class="reg">
+Some of the methods will process the declarations in the program (checking
+for bad declarations and checking
+whether the names are multiply declared, and if not, adding appropriate
+symbol-table entries) and some will process the statements in the program
+(checking that every name used in a statement has been declared and
+adding links).
+Note that you should <em>not</em> add a link for an <tt>IdNode</tt> that represents
+a use of an undeclared name.
+</p>
+
+<h4 id="handlingStructs"><tt>struct</tt> Handling Issues</h4>
+<p class="reg">
+Name analysis issues surrounding <tt>struct</tt>s come up in several situations:
+</p>
+<ul>
+
+  <li><p class="reg"><b>Defining a <tt>struct</tt> type</b>: for example</p>
+  <dir><pre>struct Point {
+    int x;
+    int y;
+};</pre></dir>
+<p class="reg">When defining a <tt>struct</tt>, the name of the <tt>struct</tt> type can't be a name that
+has already been declared. The fields of a <tt>struct</tt> must be unique to that particular <tt>struct</tt>; however, they can be a name that has been declared outside of the <tt>struct</tt> definition. For this reason, a recommended approach is to have a separate symbol table associated with each <tt>struct</tt> definition and to store this symbol table in the symbol for the name of the <tt>struct</tt> type.
+</p>
+  </li>
+
+  <li><p class="reg"><b>Declaring a variable to be of a <tt>struct</tt> type</b>: for example</p>
+  <dir><pre>struct Point pt;</pre></dir>
+<p class="reg">When declaring a variable of a <tt>struct</tt> type, in addition to determining if the variable
+name has been previously declared (and issuing a "multiply declared" error if it is),
+you should also check that the name of the <tt>struct</tt> type has been
+previously declared and is actually the name of a <tt>struct</tt> type.
+</p>
+  </li>
+
+  <li><p class="reg"><b>Accessing the fields of a <tt>struct</tt></b>: for example</p>
+  <dir><pre>pt.x = 7;</pre></dir>
+<p class="reg">When doing name analysis on something like <tt><i>LHS</i>.<i>RHS</i></tt>, you will need to check
+that <tt><i>LHS</i></tt> is the name of a variable that has previously been declared to be of a <tt>struct</tt>
+type and that <tt><i>RHS</i></tt> is the name of a field in the <tt>struct</tt> type associated with
+<tt><i>LHS</i></tt>.
+</p>
+  </li>
+</ul>
+
+<h4 id="errorReporting">Error Reporting</h4>
+<p class="reg">
+Your name analyzer should find all of the errors described
+in the table given below;
+it should report the specified position of the error,
+and it should give <em>exactly</em> the specified error message
+(each message should appear on a single line, rather than how it is
+formatted in the following table).
+Error messages should have the same format as in the scanner and parser
+(i.e., they should be issued using a call to <tt>ErrMsg.fatal</tt>).
+</p>
+<p class="reg">
+If a declaration is both "bad" (e.g., a non-function declared <tt>void</tt>)
+and is a declaration of a name that has already been declared
+in the same scope, you should give <em>two</em> error
+messages (first the "bad" declaration error, then the
+"multiply declared" error).
+</p>
+
+<dir id="errorMsgs">
+<table border="1" cellpadding="2" cellspacing="0">
+<tr>
+  <th class="reg">Type of Error</th>
+  <th class="reg">Error Message</th>
+  <th class="reg">Position to Report</th>
+</tr>
+
+<tr>
+  <td  class="reg">More than one declaration of an identifier in a given scope
+  (note: includes identifier associated with a <tt>struct</tt> definition)</td>
+  <td  class="reg"><tt>Multiply declared identifier</tt></td>
+  <td  class="reg">The first character of the ID in the duplicate declaration</td>
+</tr>
+<tr>
+  <td  class="reg">Use of an undeclared identifier</td>
+  <td  class="reg"><tt>Undeclared identifier</tt></td>
+  <td  class="reg">The first character of the undeclared identifier</td>
+</tr>
+<tr>
+  <td  class="reg">Bad <tt>struct</tt> access (LHS of dot-access is not of a <tt>struct</tt> type)</td>
+  <td  class="reg"><tt>Dot-access of non-struct type</tt></td>
+  <td  class="reg">The first character of the ID corresponding to the LHS of the dot-access.</td>
+</tr>
+<tr>
+  <td  class="reg">Bad <tt>struct</tt> access (RHS of dot-access is not a field of the appropriate a <tt>struct</tt>)</td>
+  <td  class="reg"><tt>Invalid struct field name</tt></td>
+  <td  class="reg">The first character of the ID corresponding to the RHS of the dot-access.</td>
+</tr>
+
+<tr>
+  <td  class="reg">Bad declaration (variable or parameter of type <tt>void</tt>)</td>
+  <td  class="reg"><tt>Non-function declared void</tt></td>
+  <td  class="reg">The first character of the ID in the bad declaration.</td>
+</tr>
+<tr>
+  <td  class="reg">Bad declaration (attempt to declare variable of a bad <tt>struct</tt> type)</td>
+  <td  class="reg"><tt>Invalid name of struct type</tt></td>
+  <td  class="reg">The first character of the ID corresponding to the <tt>struct</tt> type in the bad declaration.</td>
+</tr>
+</table>
+</dir>
+
+<p class="reg">
+Note that the names themselves should <em>not</em> be printed as
+part of the error messages.
+</p>
+<p class="reg">
+During name analysis, if a function name is multiply declared
+you <em>should</em> still process the formals and the body of the function;
+don't add a new entry to the current symbol table for the function,
+but do add a new
+hashtable to the front of the <tt>SymTable</tt>'s list for the names declared in
+the body (i.e., the parameters and other local variables of the function).
+</p>
+<p class="reg">
+If you find a bad variable declaration (a variable of type <tt>void</tt>
+or of a bad <tt>struct</tt> type),
+give an error message and add nothing to the symbol table.
+</p>
+
+<h3 id="other">Other Tasks</h3>
+
+<h4 id="classSymbol">Extending the <tt>Sym</tt> Class</h4>
+<p class="reg">It is up to you how you store information in each symbol-table
+  entry (each <tt>Sym</tt>).
+  To implement the changes to the unparser described below you will need
+  to know each name's type.
+  For function names, this includes the return type and the number of
+  parameters and their types.
+
+  You can modify the <tt>Sym</tt> class by adding
+  some new fields (e.g., a <tt>kind</tt> field)
+  and/or by declaring some subclasses (e.g.,
+  a subclass for functions that has extra fields for the
+  return type and the list of parameter types).
+  You will probably also want to add new methods that return the values
+  of the new fields and it may be helpful to change the <tt>toString</tt>
+  method so that you can print the contents of a <tt>Sym</tt> for
+  debugging purposes.
+</p>
+
+<h4 id="idnode">Modifying the <tt>IdNode</tt> Class</h4>
+<p class="reg">
+Two changes to the <tt>IdNode</tt> class are needed:
+</p>
+<ol class="reg">
+  <li><p>Adding a new field of type <tt>Sym</tt> (to link the node with the
+       corresponding symbol-table entry), and
+  </p></li>
+  <li>
+       <p>Changing the unparse method so that every use of an ID has
+       its type (in parentheses) after its name.
+       (The point of this is to help you to see whether your name
+       analyzer is working correctly; i.e., does it correctly match
+       each use of a name to the corresponding declaration, and does
+       it correctly set the link from the <tt>IdNode</tt> to the
+       information in the symbol table.)
+       For names of functions, the information should be of
+       the form:
+       <tt>param1Type, param2Type, ..., paramNType -> returnType</tt>.
+       For names of global variables, parameters, and local variables of a non-<tt>struct</tt> type , the
+       information should  be <tt>int</tt> or <tt>bool</tt>.
+       For a global or local variable that is of a <tt>struct</tt> type,
+	   the information should be the name of the <tt>struct</tt> type.
+	   For example, given a program that contains this code:</p>
+<dir><pre>struct Point {
+    int x;
+    int y;
+};
+int f(int x, bool b) { }
+void g() {
+    int a;
+    bool b;
+    struct Point p;
+    p.x = a;
+    b = a == 3;
+    f(a + p.y*2, b);
+    g();
+}</pre></dir>
+       <p>The unparser should print:</p>
+<dir><pre>struct Point {
+    int x;
+    int y;
+};
+int f(int x, bool b) {
+}
+void g() {
+    int a;
+    bool b;
+    struct Point p;
+    p(Point).x(int) = a(int);
+    b(bool) = (a(int) == 3);
+    f(int,bool->int)((a(int) + (p(Point).y(int) * 2)), b(bool));
+    g(->void)();
+}</pre></dir>
+    </li>
+</ol>
+
+<h4 id="errorSummary">Summary</h4>
+<tt>struct</tt>
+<ul>
+	<li>If a variable or a function with the same name has been declared in the same scope before, then do not add a SymTable entry for the struct. You don't have to process the variables of the struct in this case.</li>
+	<li>A variable inside a struct with the same name as a variable or a function outside the struct is legal.</li>
+	<li>A variable x inside a struct with the same name as another variable inside the struct is illegal. In this case, create SymTable for the struct and add all variables up to but excluding the second occurrence of x and then continue with the rest of the members.</li>
+	<li>If a struct is used without declaration like a.b, then you can report two errors (undeclared ID and dot access of non-struct type) or you can just report undeclared ID.</li>
+	<li>The name of the struct is in a scope that is one level outside the scope of the struct itself. Thus, a struct and one of its members can have the same name.</li>
+ </ul>
+<tt>function</tt>
+<ul>
+  <li>A function with the same name as another function in the same scope is illegal. You must not add a new SymTable entry in the outer scope for this second occurrence. You should process the formals and the local variables for both the functions.</li>
+	<li>A function with the same name as another variable in the same scope is illegal. In this case, do not create a SymTable entry for the function. However, continue processing the body of the function.</li>
+	<li>If a function with formal parameter a also has a variable declared as a, then create the SymTable for the function and add the formal parameter but not the local variable and then continue with processing.</li>
+	<li>If a function has 2 formal parameters or 2 local variables with the same name, then create the SymTable, add the first parameter/local variable, report the error and then continue with processing.</li>
+	<li>The name of the function is in a scope that is one level outside the scope of the function itself. Thus, a function and one of its formals/local variables can have the same name.</li>
+ </ul>
+<tt>if/else/while</tt>
+<ul>
+
+	<li>if/else and while statements have their own scope. So, names can be reused inside these statements.</li>
+	<li>The if part and the else part have different scopes. So, the same name can be declared in both of them.</li>
+</ul>
+
+
+<h4 id="P4">P4.java</h4>
+<p class="reg">
+The main program, <tt>P4.java</tt>, will be similar to <tt>P3.java</tt>,
+except that
+</p>
+<ul class="reg">
+  <li>After parsing, if there are no syntax errors, it will call
+       the name analyzer.
+  <li>After that, if there are no errors so far (either scanning, parsing, or
+       name-analysis errors), it will call the unparser.
+</ul>
+<p class="reg">
+Calling the name analyzer means calling the
+appropriate method of the <tt>ASTnode</tt> that is the root of the
+tree built by the parser.
+</p>
+
+<h4 id="errorHandling">Modifying the <tt>ErrMsg</tt> Class</h4>
+<p class="reg">
+Your compiler should quit after the name analyzer has finished if any
+errors have been detected so far (either by the scanner/parser or
+the name analyzer).
+To accomplish this, you can add a static boolean field to the <tt>ErrMsg</tt>
+class that is initialized to <tt>false</tt> and is set
+to <tt>true</tt> if the <tt>fatal</tt> method is ever called
+(warnings should not change the value of this field).
+Your <tt>main</tt> program can check the value of this field
+and only call the unparser if it is <tt>false</tt>.
+</p>
+
+<h4 id="testFiles">Writing Test Inputs</h4>
+<p class="reg">
+You will need to write two input files to test your code:
+</p>
+<ol class="reg">
+  <li><p><tt>nameErrors.wumbo</tt> should contain code with errors
+    detected by the name analyzer.
+    This means that it should include bad and multiply declared names
+    for all of the different kinds of names, and in all of the
+    different places that declarations can appear.
+    It should also include uses of undeclared names in all kinds
+    of statements and expressions as well as bad <tt>struct</tt> accesses.
+  </p></li>
+  <li>
+    <p><tt>test.wumbo</tt> should
+    contain code with no errors that exercises all of the name-analysis
+    methods that you wrote for the different AST nodes.
+    This means that it should include (good) declarations of all of the
+    different kinds of names in all of the places that names can be
+    declared
+    and it should include (good) uses of names in all kinds
+    of statements and expressions.
+  </p></li>
+</ol>
+
+<p class="reg">
+Note that your <tt>nameErrors.wumbo</tt> should cause error
+messages to be output, so to know whether your name analyzer
+behaves correctly, you will need to know what output to expect.
+</p>
+<p class="reg">
+As usual, you will be graded in part
+on how thoroughly your input files test your code.
+</p>
+
+<h3 id="advice">Some Advice</h3>
+<p class="reg">
+Here are few words of advice about various issues that come up
+in the assignment:
+</p>
+
+
+<ul class="reg">
+  <li><p>For this assignment you are free to make any changes you want
+       to the code in <tt>ast.java</tt>.
+  </p></li>
+  <li><p>The tree-traversal code you wrote to perform unparsing provides
+       a good model for the traversal that you need to write to handle
+       name analysis.
+       However, you might not want to declare the name-analysis
+       methods to be abstract methods of class
+       <tt>ASTnode</tt> (as we did for <tt>unparse</tt>).
+       This is because you will not need those methods for all nodes; e.g.,
+       you probably won't want a name-analysis method for all of the sub-classes of the
+       <tt>TypeNode</tt> class.
+       </p>
+       <p>
+       However, you will need to declare the name-analysis methods
+       to be abstract methods of some of the
+       classes that are lower down in the inheritance hierarchy;
+       for example, you will need to declare an abstract name-analysis
+       method for the <tt>DeclNode</tt> class, because the method for
+       the <tt>DeclListNode</tt> class will call that method for each
+       node in the list.
+   </p></li>
+  <li>
+    <p>If you are working with a partner, you will have to decide how to
+       divide up the work.
+       You might want to divide up some of the "incidental tasks"
+       (like modifying the <tt>ErrMsg</tt>, <tt>Sym</tt>, and <tt>IdNode</tt> classes),
+       then work together to get a small part of the name-analysis
+       phase working (e.g., finding multiply declared global variables).
+       Then you could split up the <tt>ASTnode</tt> subclasses and each
+       implement the name-analysis methods for your
+       subset of those classes (you might want to start by choosing just a
+       few each, until you have a better idea which ones will require the
+       most work).</p>
+       <p>
+       Don't forget to test your work as you go along, rather than waiting
+       until everything is finished!
+   </p></li>
+</ul>
+
+</td>
+</tr>
+
+<tr><td></td></tr> <!-- space between items -->
+
+<tr><td class="regBG">
+<h2 id="Handin">Handing in</h2>
+<p class="reg"> Please read the following handing in instructions carefully.
+You will be needed to submit the the entire working folder as a compressed file as given below.<br> <br>
+
+lastname.firstname.lastname.firstname.P4.zip <br>
++---+ deps/ <br>
++---+ ast.java <br>
++---+ Wumbo.cup <br>
++---+ Wumbo.jlex <br>
++---+ DuplicateSymException.java <br>
++---+ EmptySymTableException.java <br>
++---+ ErrMsg.java <br>
++---+ Makefile <br>
++---+ P4.java <br>
++---+ Sym.java <br>
++---+ SymTable.java <br>
++---+ nameErrors.wumbo <br>
++---+ test.wumbo <br>
++---+ lastname.firstname.lastname.firstname.P4.pdf <br>
+ <br>
+<b>Please ensure that you <b>do not</b> include any extra sub-directories.</b>
+
+<b>Do not turn in any <tt>.class</tt> files. If you accidentally turn in (or create) extra files or subdirectories, please remove them from your submission zip file.
+
+<br> <br>
+If you are working in a pair, have only one member submit the program. <b>Include both persons' name as given above. </b> Also, mention the teammate's name as a comment while submitting the assignment on canvas.</p>
+
+<div style="border-style: solid; border-color: orange">
+
+     <h3>Joining a Canvas group with your partner (also required for those who work alone)</h3>
+
+     <p class="reg">
+     To faciliate grading, before you submit the compressed file, please join a Canvas group with your partner (<a href="https://community.canvaslms.com/docs/DOC-10516-421264913">guide</a>) so you can both receive grades for the same submission. Since you're working on P4, please join an empty group whose name is in the form of "<strong>P4-Pair #</strong>" (type "P4" in the search bar). Note that we have created the groups for you so you only need to join an empty one with your partner. If you work alone, please join an empty group as well.
+</p>
+
+</div>
+
+<tr><td class="regBG">
+<h2 id="Grading">Grading criteria</h2>
+<p class="reg">
+General information on program
+grading criteria can be found
+on the <a href="http://pages.cs.wisc.edu/~loris/cs536/asn.html">Assignments</a> page.
+</p>
+<p class="reg">
+For more advice on Java programming style, see
+<a href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html">
+Code Conventions for the Java Programming Language.</a>
+See also the
+    <a href="http://www.cs.wisc.edu/~cs302/resources/guides/style.html">style</a> and
+    <a href="http://www.cs.wisc.edu/~cs302/resources/guides/commenting.html">commenting</a>
+    standards used in CS 302 and CS 367.
+</p>
+</td></tr>
+
+</td></tr>
+<tr><td></td></tr> <!-- space between items -->
+
+</table>
+</body>
+
+</html>
