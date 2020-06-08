@@ -65,8 +65,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/scanning.html">notes</a>
       </td>
       <td>
-         <a href="h1/h1.html">HW1 assigned</a> <br />
-         <a href="hw_solutions/hw1_soln/hw1_solution.html">HW1 solution</a>
+         <a href="h1/h1.html">HW1 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -90,8 +89,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
       <td>
          <a href="p2/p2.html">P2 assigned</a>
-         <a href="h2/h2.html">HW2 assigned</a> <br />
-         <a href="hw_solutions/hw2_soln/h2_soln.html">HW2 solution</a>
+         <a href="h2/h2.html">HW2 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -113,8 +111,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/SDT.html">notes</a>
       </td>
       <td>
-         <a href="h3/h3.html">HW3 assigned</a> <br />
-         <a href="hw_solutions/hw3_soln/h3_soln.html">HW3 solution</a>
+         <a href="h3/h3.html">HW3 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -141,8 +138,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
       <td>
          <a href="p3/p3.html">P3 assigned</a><br>
-         <a href="h4/h4.html">HW4 assigned</a> <br />
-         <a href="hw_solutions/hw4_soln/h4_soln.html">HW4 solution</a>
+         <a href="h4/h4.html">HW4 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -164,8 +160,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/Topdown.html">notes</a>
       </td>
       <td>
-         <a href="h5/h5.html">HW5 assigned</a> <br />
-         <a href="hw_solutions/hw5_soln/h5_soln.html">HW5 solution</a>
+         <a href="h5/h5.html">HW5 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -189,8 +184,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/symtab.html">notes</a>
       </td>
       <td>
-         <a href="h6/h6.html">HW6 assigned</a> <br />
-         <a href="hw_solutions/hw6_soln/h6_soln.html">HW6 solution</a>
+         <a href="h6/h6.html">HW6 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -236,8 +230,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/runtime.html">notes</a>
       </td>
       <td>
-         <a href="h7/h7.html">HW7 assigned</a> <br />
-         <a href="hw_solutions/hw7_soln/h7_soln.html">HW7 solution</a>
+         <a href="h7/h7.html">HW7 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -251,8 +244,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/params.html">notes</a>
       </td>
       <td>
-         <a href="h8/h8.html">HW8 assigned</a><br>
-         <a href="hw_solutions/hw8_soln/h8_soln.pdf">HW8 solution</a>
+         <a href="h8/h8.html">HW8 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -280,8 +272,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/codegen.html">notes</a>
       </td>
       <td>
-         <a href="h9/h9.html">HW9 assigned</a><br />
-         <a href="hw_solutions/hw9_soln/h9_soln.html">HW9 solution</a>
+         <a href="h9/h9.html">HW9 assigned</a>
       </td>
       <td>
          <a href="slides/lec19_code/demo.zip">LLVM Demo</a>
@@ -334,8 +325,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/optimization.html">notes</a>
       </td>
       <td>
-         <a href="h10/h10.html">H10 assigned</a><br>
-         <a href="hw_solutions/hw10_soln/h10_soln.html">HW10 solution</a><br />
+         <a href="h10/h10.html">H10 assigned</a>
          <a href="p6/p6.html">P6 assigned</a>
       </td>
       <td></td>
