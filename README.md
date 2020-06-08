@@ -88,7 +88,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/CFGs.html">notes</a>
       </td>
       <td>
-         <a href="p2/p2.html">P2 assigned</a>
+         <a href="p2/p2.html">P2 assigned</a> <br />
          <a href="h2/h2.html">HW2 assigned</a>
       </td>
       <td></td>
@@ -322,7 +322,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/optimization.html">notes</a>
       </td>
       <td>
-         <a href="h10/h10.html">H10 assigned</a>
+         <a href="h10/h10.html">H10 assigned</a><br />
          <a href="p6/p6.html">P6 assigned</a>
       </td>
       <td></td>
