@@ -29,14 +29,12 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
 
 <table class="tg">
    <tr>
-      <th>Date</th>
       <th>Topic</th>
       <th>Slides | Notes</th>
       <th>Assigned</th>
       <th>Other</th>
    </tr>
    <tr>
-      <td>1/21</td>
       <td>Course overview</td>
       <td>
          <a href="slides/lec1.pdf">pdf</a> |
@@ -48,7 +46,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>1/23</td>
       <td>Finite-state machines</td>
       <td>
          <a href="slides/lec2.pdf">pdf</a> |
@@ -61,7 +58,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
    </tr>
    <tr>
-      <td>1/28</td>
       <td>NFAs</td>
       <td>
          <a href="slides/lec3.pdf">pdf</a> |
@@ -75,7 +71,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>1/30</td>
       <td>Scanner generators</td>
       <td>
          <a href="slides/lec4.pdf">pdf</a> |
@@ -87,7 +82,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>2/4</td>
       <td>Context-free grammars</td>
       <td>
          <a href="slides/lec5.pdf">pdf</a> |
@@ -102,7 +96,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>2/6</td>
       <td>Context-free grammars (ambiguity)</td>
       <td>
          <a href="slides/lec6.pdf">pdf</a> |
@@ -113,7 +106,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>2/11</td>
       <td>Syntax-directed translation</td>
       <td>
          <a href="slides/lec7.pdf">pdf</a> |
@@ -127,7 +119,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>2/13</td>
       <td>Java CUP</td>
       <td>
          <a href="slides/lec8.pdf">pdf</a> |
@@ -142,7 +133,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
    </tr>
    <tr>
-      <td>2/18</td>
       <td>Parsing</td>
       <td>
          <a href="slides/lec9.pdf">pdf</a> |
@@ -157,7 +147,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>2/20</td>
       <td>Topdown parsing</td>
       <td>
          <a href="slides/lec10.pdf">pdf</a> |
@@ -168,7 +157,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>2/25</td>
       <td>Topdown parsing (cont'd)</td>
       <td>
          <a href="slides/lec11.pdf">pdf</a> |
@@ -182,7 +170,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>2/27</td>
       <td>SDT for predictive parsing</td>
       <td>
          <a href="slides/lec12.pdf">pdf</a> |
@@ -195,7 +182,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
    </tr>
    <tr>
-      <td>3/3</td>
       <td>Semantic analysis</td>
       <td>
          <a href="slides/lec13.pdf">pdf</a> |
@@ -209,7 +195,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>3/5</td>
       <td>Review session</td>
       <td></td>
       <td>
@@ -221,7 +206,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
    </tr>
    <tr>
-      <td>3/10</td>
       <td><b>Midterm exam </b></td>
       <td>
          In class
@@ -230,7 +214,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>3/12</td>
       <td>LR parsing</td>
       <td>
          <a href="slides/lec14.pdf">pdf</a> |
@@ -241,7 +224,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>3/17</td>
       <td>
          Spring break
       </td>
@@ -250,7 +232,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>3/19</td>
       <td>
          Spring break
       </td>
@@ -259,7 +240,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>3/24</td>
       <td>
          Types
       </td>
@@ -271,7 +251,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>3/26</td>
       <td>
          Runtime environments
       </td>
@@ -287,7 +266,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>3/31</td>
       <td>
          Parameter passing
       </td>
@@ -303,7 +281,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>4/2</td>
       <td>
          Variable access
       </td>
@@ -318,7 +295,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>4/7</td>
       <td>
          Code generation
       </td>
@@ -336,7 +312,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
    </tr>
    <tr>
-      <td>4/9</td>
       <td>
          Code generation (cont'd)
       </td>
@@ -350,7 +325,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>4/14</td>
       <td>
          Code generation (cont'd)
       </td>
@@ -363,7 +337,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>4/16</td>
       <td>
          Optimization
       </td>
@@ -376,7 +349,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>4/21</td>
       <td>
          More optimization
       </td>
@@ -393,7 +365,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>4/23</td>
       <td>A peak at program synthesis</td>
       <td>
          <a href="slides/2020-cs536-researchintro.pptx">slides</a> |
@@ -408,7 +379,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
    </tr>
    <tr>
-      <td>4/28</td>
       <td>
          No class
       </td>
@@ -424,7 +394,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td></td>
    </tr>
    <tr>
-      <td>4/30</td>
       <td>
          Review session
       </td>
@@ -436,7 +405,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
    </tr>
    <tr>
-      <td>5/7</td>
       <td>Final exam</td>
       <td>2:45pm-4:45pm</td>
       <td>TBD</td>
