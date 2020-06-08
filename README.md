@@ -2,9 +2,9 @@
 
 ## Links
 
-- [GitHub Repo](https://github.com/ShawnZhong/CS536-Spring-2019)
-
 - [GitHub Pages](https://shawnzhong.github.io/CS536-Spring-2019/)
+
+- [GitHub Repo](https://github.com/ShawnZhong/CS536-Spring-2019)
 
 - [Course Homepage](http://pages.cs.wisc.edu/~loris/cs536/)
 
@@ -348,6 +348,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
 
 - <a href="old_exams/midterm13.pdf">Sample midterm</a> (<a href="old_exams/midterm13soln.html">soln</a>)<br />
 
-- <a href="old_exams/sample1.pdf">Sample 1</a> (<a href="old_exams/sampleFinalPost.answers.html">soln</a>)<br />
+- <a href="old_exams/sample1.pdf">Sample final 1</a> (<a href="old_exams/sampleFinalPost.answers.html">soln</a>)<br />
 
-- <a href="old_exams/sample2.pdf">Sample 2</a><br />
+- <a href="old_exams/sample2.pdf">Sample final 2</a><br />
