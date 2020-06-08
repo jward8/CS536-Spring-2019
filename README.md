@@ -348,6 +348,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
 
 - <a href="old_exams/midterm13.pdf">Sample midterm</a> (<a href="old_exams/midterm13soln.html">soln</a>)<br />
 
-- <a href="old_exams/sample1.pdf">Sample Final 1</a> (<a href="old_exams/sampleFinalPost.answers.html">soln</a>)<br />
+- <a href="old_exams/sample1.pdf">Sample final 1</a> (<a href="old_exams/sampleFinalPost.answers.html">soln</a>)<br />
 
-- <a href="old_exams/sample2.pdf">Sample Final 2</a><br />
+- <a href="old_exams/sample2.pdf">Sample final 2</a><br />
