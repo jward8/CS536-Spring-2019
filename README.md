@@ -206,36 +206,12 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
    </tr>
    <tr>
-      <td><b>Midterm exam </b></td>
-      <td>
-         In class
-      </td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
       <td>LR parsing</td>
       <td>
          <a href="slides/lec14.pdf">pdf</a> |
          <a href="slides/lec14.pptx">ppt</a> |
          <a href="readings/LR.html">notes</a>
       </td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>
-         Spring break
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>
-         Spring break
-      </td>
-      <td></td>
       <td></td>
       <td></td>
    </tr>
@@ -377,21 +353,6 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <!--<a href="https://www.cis.upenn.edu/~bcpierce/sf/current/index.html">Coq book</a>-->
       </td>
-   </tr>
-   <tr>
-      <td>
-         No class
-      </td>
-      <td>
-         <!--
-            <a href="http://llvm.org/docs/WritingAnLLVMPass.html">
-                LLVM passes</a><br>
-            <a href="http://adriansampson.net/blog/llvm.html">
-                Sampson's blog</a><br>
-              -->
-      </td>
-      <td></td>
-      <td></td>
    </tr>
    <tr>
       <td>
