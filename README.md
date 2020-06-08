@@ -52,7 +52,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>Finite-state machines</td>
       <td>
          <a href="slides/lec2.pdf">pdf</a> |
-         <a href="readings/scanning.php">notes</a>
+         <a href="readings/scanning.html">notes</a>
       </td>
       <td>
       </td>
@@ -66,7 +66,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec3.pdf">pdf</a> |
          <a href="slides/lec3.pptx">ppt</a> |
-         <a href="readings/scanning.php">notes</a>
+         <a href="readings/scanning.html">notes</a>
       </td>
       <td>
          <a href="h1/h1.html">HW1 assigned</a> <br />
@@ -80,7 +80,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec4.pdf">pdf</a> |
          <a href="slides/lec4.pptx">ppt</a> | 
-         <a href="readings/JLex.php">notes</a>
+         <a href="readings/JLex.html">notes</a>
       </td>
       <td>
       </td>
@@ -92,7 +92,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec5.pdf">pdf</a> |
          <a href="slides/lec5.pptx">ppt</a> |
-         <a href="readings/CFGs.php">notes</a>
+         <a href="readings/CFGs.html">notes</a>
       </td>
       <td>
          <a href="p2/p2.html">P2 assigned</a>
@@ -107,7 +107,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec6.pdf">pdf</a> |
          <a href="slides/lec6.pptx">ppt</a> | 
-         <a href="readings/CFGs.php">notes</a>
+         <a href="readings/CFGs.html">notes</a>
       </td>
       <td></td>
       <td></td>
@@ -118,7 +118,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec7.pdf">pdf</a> |
          <a href="slides/lec7.pptx">ppt</a> |
-         <a href="readings/SDT.php">notes</a>
+         <a href="readings/SDT.html">notes</a>
       </td>
       <td>
          <a href="h3/h3.html">HW3 assigned</a> <br />
@@ -132,12 +132,12 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec8.pdf">pdf</a> |
          <a href="slides/lec8.pptx">ppt</a> | 
-         <a href="readings/CUP.php">notes</a>
+         <a href="readings/CUP.html">notes</a>
       </td>
       <td>
       </td>
       <td>
-         <a href="http://www2.cs.tum.edu/projekte/cup/examples.php">
+         <a href="http://www2.cs.tum.edu/projekte/cup/examples.html">
          Examples</a>
       </td>
    </tr>
@@ -147,7 +147,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec9.pdf">pdf</a> |
          <a href="slides/lec9.pptx">ppt</a> |
-         <a href="readings/Parsing.php">notes</a>
+         <a href="readings/Parsing.html">notes</a>
       </td>
       <td>
          <a href="p3/p3.html">P3 assigned</a><br>
@@ -162,7 +162,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec10.pdf">pdf</a> |
          <a href="slides/lec10.pptx">ppt</a> | 
-         <a href="readings/Topdown.php">notes</a>
+         <a href="readings/Topdown.html">notes</a>
       </td>
       <td></td>
       <td></td>
@@ -173,7 +173,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec11.pdf">pdf</a> |
          <a href="slides/lec11.pptx">ppt</a> |
-         <a href="readings/Topdown.php">notes</a>
+         <a href="readings/Topdown.html">notes</a>
       </td>
       <td>
          <a href="h5/h5.html">HW5 assigned</a> <br />
@@ -187,7 +187,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec12.pdf">pdf</a> |
          <a href="slides/lec12.pptx">ppt</a> |
-         <a href="readings/parsingSDT.php">notes</a>
+         <a href="readings/parsingSDT.html">notes</a>
       </td>
       <td>
       </td>
@@ -200,7 +200,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec13.pdf">pdf</a> |
          <a href="slides/lec13.pptx">ppt</a> |
-         <a href="readings/symtab.php">notes</a>
+         <a href="readings/symtab.html">notes</a>
       </td>
       <td>
          <a href="h6/h6.html">HW6 assigned</a> <br />
@@ -235,7 +235,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec14.pdf">pdf</a> |
          <a href="slides/lec14.pptx">ppt</a> |
-         <a href="readings/LR.php">notes</a>
+         <a href="readings/LR.html">notes</a>
       </td>
       <td></td>
       <td></td>
@@ -278,7 +278,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec16.pdf">pdf</a> |
          <a href="slides/lec16.pptx">ppt</a> |
-         <a href="readings/runtime.php">notes</a>
+         <a href="readings/runtime.html">notes</a>
       </td>
       <td>
          <a href="h7/h7.html">HW7 assigned</a> <br />
@@ -294,7 +294,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec17.pdf">pdf</a> |
          <a href="slides/lec17.pptx">ppt</a> |
-         <a href="readings/params.php">notes</a>
+         <a href="readings/params.html">notes</a>
       </td>
       <td>
          <a href="h8/h8.html">HW8 assigned</a><br>
@@ -310,7 +310,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec18.pdf">pdf</a> |
          <a href="slides/lec18.pptx">ppt</a> | 
-         <a href="readings/vars.php">notes</a>
+         <a href="readings/vars.html">notes</a>
       </td>
       <td>
          <a href="p5/p5.html">P5 assigned</a>
@@ -325,7 +325,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec19.pdf">pdf</a> |
          <a href="slides/lec19.pptx">ppt</a> |
-         <a href="readings/codegen.php">notes</a>
+         <a href="readings/codegen.html">notes</a>
       </td>
       <td>
          <a href="h9/h9.html">HW9 assigned</a><br />
@@ -343,7 +343,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec20.pdf">pdf</a> |
          <a href="slides/lec20.pptx">ppt</a> | 
-         <a href="readings/codegen.php">notes</a>
+         <a href="readings/codegen.html">notes</a>
       </td>
       <td>
       </td>
@@ -357,7 +357,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec21.pdf">pdf</a> |
          <a href="slides/lec21.pptx">ppt</a> |
-         <a href="readings/codegen.php">notes</a>
+         <a href="readings/codegen.html">notes</a>
       </td>
       <td></td>
       <td></td>
@@ -370,7 +370,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec22.pdf">pdf</a> |
          <a href="slides/lec22.pptx">ppt</a> | 
-         <a href="readings/optimization.php">notes</a>
+         <a href="readings/optimization.html">notes</a>
       </td>
       <td></td>
       <td></td>
@@ -383,7 +383,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="slides/lec23.pdf">pdf</a> |
          <a href="slides/lec23.pptx">ppt</a> |
-         <a href="readings/optimization.php">notes</a>
+         <a href="readings/optimization.html">notes</a>
       </td>
       <td>
          <a href="h10/h10.html">H10 assigned</a><br>
