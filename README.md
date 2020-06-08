@@ -322,7 +322,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/optimization.html">notes</a>
       </td>
       <td>
-         <a href="hw/h10/h10.html">H10 assigned</a><br />
+         <a href="hw/h10/h10.html">HW10 assigned</a><br />
          <a href="p6/p6.html">P6 assigned</a>
       </td>
       <td></td>
