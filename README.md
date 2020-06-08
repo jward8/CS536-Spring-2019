@@ -194,10 +194,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       <td>
          <a href="p4/p4.html">P4 assigned</a> <br />
       </td>
-      <td>
-         <a href="old_exams/midterm13.pdf">Sample midterm</a> (<a href="old_exams/midterm13soln.html">soln</a>)<br />
-         <!--<a href="old_exams/practice.pdf">Practice</a> (<a href="old_exams/practicesol.pdf">soln</a>)-->
-      </td>
+      <td></td>
    </tr>
    <tr>
       <td>LR parsing</td>
@@ -348,6 +345,8 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
 
 
 ## Old Exams
+
+- <a href="old_exams/midterm13.pdf">Sample midterm</a> (<a href="old_exams/midterm13soln.html">soln</a>)<br />
 
 - <a href="old_exams/sample1.pdf">Sample 1</a> (<a href="old_exams/sampleFinalPost.answers.html">soln</a>)<br />
 
