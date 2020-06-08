@@ -65,7 +65,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/scanning.html">notes</a>
       </td>
       <td>
-         <a href="h1/h1.html">HW1 assigned</a>
+         <a href="hw/h1/h1.html">HW1 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -89,7 +89,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
       <td>
          <a href="p2/p2.html">P2 assigned</a> <br />
-         <a href="h2/h2.html">HW2 assigned</a>
+         <a href="hw/h2/h2.html">HW2 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -111,7 +111,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/SDT.html">notes</a>
       </td>
       <td>
-         <a href="h3/h3.html">HW3 assigned</a>
+         <a href="hw/h3/h3.html">HW3 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -138,7 +138,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
       </td>
       <td>
          <a href="p3/p3.html">P3 assigned</a><br>
-         <a href="h4/h4.html">HW4 assigned</a>
+         <a href="hw/h4/h4.html">HW4 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -160,7 +160,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/Topdown.html">notes</a>
       </td>
       <td>
-         <a href="h5/h5.html">HW5 assigned</a>
+         <a href="hw/h5/h5.html">HW5 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -184,7 +184,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/symtab.html">notes</a>
       </td>
       <td>
-         <a href="h6/h6.html">HW6 assigned</a>
+         <a href="hw/h6/h6.html">HW6 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -227,7 +227,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/runtime.html">notes</a>
       </td>
       <td>
-         <a href="h7/h7.html">HW7 assigned</a>
+         <a href="hw/h7/h7.html">HW7 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -241,7 +241,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/params.html">notes</a>
       </td>
       <td>
-         <a href="h8/h8.html">HW8 assigned</a>
+         <a href="hw/h8/h8.html">HW8 assigned</a>
       </td>
       <td></td>
    </tr>
@@ -269,7 +269,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/codegen.html">notes</a>
       </td>
       <td>
-         <a href="h9/h9.html">HW9 assigned</a>
+         <a href="hw/h9/h9.html">HW9 assigned</a>
       </td>
       <td>
          <a href="slides/lec19_code/demo.zip">LLVM Demo</a>
@@ -322,7 +322,7 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <a href="readings/optimization.html">notes</a>
       </td>
       <td>
-         <a href="h10/h10.html">H10 assigned</a><br />
+         <a href="hw/h10/h10.html">H10 assigned</a><br />
          <a href="p6/p6.html">P6 assigned</a>
       </td>
       <td></td>
