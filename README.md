@@ -344,21 +344,11 @@ Those six projects are done by [@RobeZH](https://github.com/541736690) and [@Sha
          <!--<a href="https://www.cis.upenn.edu/~bcpierce/sf/current/index.html">Coq book</a>-->
       </td>
    </tr>
-   <tr>
-      <td>
-         Review session
-      </td>
-      <td></td>
-      <td></td>
-      <td>
-         <a href="old_exams/sample1.pdf">Sample 1</a> (<a href="old_exams/sampleFinalPost.answers.html">soln</a>)<br />
-         <a href="old_exams/sample2.pdf">Sample 2</a><br />
-      </td>
-   </tr>
-   <tr>
-      <td>Final exam</td>
-      <td>2:45pm-4:45pm</td>
-      <td>TBD</td>
-      <td></td>
-   </tr>
 </table>
+
+
+## Old Exams
+
+- <a href="old_exams/sample1.pdf">Sample 1</a> (<a href="old_exams/sampleFinalPost.answers.html">soln</a>)<br />
+
+- <a href="old_exams/sample2.pdf">Sample 2</a><br />
